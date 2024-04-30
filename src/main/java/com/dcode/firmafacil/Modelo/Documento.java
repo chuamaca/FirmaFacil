@@ -38,6 +38,10 @@ public class Documento extends Auditoria {
         this.NombreDocumento = NombreDocumento;
     }
 
+    public Documento() {
+    }
+
+    
     public int getIdDocumento() {
         return IdDocumento;
     }
