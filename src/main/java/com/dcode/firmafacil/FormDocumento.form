@@ -26,7 +26,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="bg" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="btnGuardarDemanda" min="-2" pref="224" max="-2" attributes="0"/>
+                      <Component id="btnFirmar" min="-2" pref="224" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -38,7 +38,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="bg" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-              <Component id="btnGuardarDemanda" min="-2" pref="64" max="-2" attributes="0"/>
+              <Component id="btnFirmar" min="-2" pref="64" max="-2" attributes="0"/>
               <EmptySpace pref="72" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -59,15 +59,15 @@
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="phoneLbl" min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="cmbCuentaBanco" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                      <Component id="cmbCliente" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="phoneLbl1" min="-2" pref="84" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="cmbCuentaBanco1" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="cmbCategoria" min="-2" pref="166" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="txtIdExpdiente" min="-2" pref="217" max="-2" attributes="0"/>
+                          <Component id="txtIdDocumento" min="-2" pref="217" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -118,14 +118,14 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="phoneLbl" pref="35" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cmbCuentaBanco" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="cmbCliente" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="phoneLbl1" pref="35" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cmbCuentaBanco1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="txtIdExpdiente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="cmbCategoria" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="txtIdDocumento" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -158,10 +158,7 @@
             <Property name="text" type="java.lang.String" value="Documento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtIdExpdiente">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="100"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtIdDocumento">
         </Component>
         <Component class="javax.swing.JLabel" name="apMLbl">
           <Properties>
@@ -257,7 +254,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JComboBox" name="cmbCuentaBanco">
+        <Component class="javax.swing.JComboBox" name="cmbCliente">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -296,7 +293,7 @@
             <Property name="text" type="java.lang.String" value="Firma Categoria"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbCuentaBanco1">
+        <Component class="javax.swing.JComboBox" name="cmbCategoria">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -305,7 +302,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnGuardarDemanda">
+    <Component class="javax.swing.JButton" name="btnFirmar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ad" green="5a" red="12" type="rgb"/>
@@ -323,7 +320,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarDemandaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFirmarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

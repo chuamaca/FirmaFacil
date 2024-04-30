@@ -3,11 +3,26 @@ package com.dcode.firmafacil;
 import com.dcode.firmafacil.Data.DDocumento;
 import com.dcode.firmafacil.Data.Tabla_PdfVO;
 import com.dcode.firmafacil.Modelo.Documento;
+import com.google.gson.Gson;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashSet;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -25,10 +40,23 @@ public class FormDocumento extends javax.swing.JPanel {
     public FormDocumento() {
         initComponents();
         InitStyles();
-        // CargarCuentaBancoCMB();
-    }
-    //Sobreescritura
+        CargarCLiente();
 
+        CargaCategoria();
+    }
+
+    public void CargarCLiente() {
+        cmbCliente.addItem("ADECCO PERU SAC");
+        cmbCliente.addItem("PEPE PEREZ");
+        cmbCliente.addItem("LIMA SAC");
+    }
+
+    public void CargaCategoria() {
+        cmbCategoria.addItem("NORMAL");
+        cmbCategoria.addItem("AVANZADA");
+    }
+
+    //Sobreescritura
 //    public PlantillaCrud(MDemanda mDemandaEdit) {
 //        System.out.println("Inicializando Cuenta CRUD" + mDemandaEdit);
 //        initComponents();
@@ -163,7 +191,7 @@ public class FormDocumento extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         nameLbl = new javax.swing.JLabel();
-        txtIdExpdiente = new javax.swing.JTextField();
+        txtIdDocumento = new javax.swing.JTextField();
         apMLbl = new javax.swing.JLabel();
         txtIngresoDet = new javax.swing.JTextField();
         domLbl = new javax.swing.JLabel();
@@ -173,21 +201,19 @@ public class FormDocumento extends javax.swing.JPanel {
         jTablePDF = new javax.swing.JTable();
         header1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cmbCuentaBanco = new javax.swing.JComboBox<>();
+        cmbCliente = new javax.swing.JComboBox<>();
         btnSeleccionarArchivo = new javax.swing.JButton();
         btnGuardarAdjunto = new javax.swing.JButton();
         phoneLbl1 = new javax.swing.JLabel();
-        cmbCuentaBanco1 = new javax.swing.JComboBox<>();
+        cmbCategoria = new javax.swing.JComboBox<>();
         txtFactura1 = new javax.swing.JTextField();
-        btnGuardarDemanda = new javax.swing.JButton();
+        btnFirmar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
 
         nameLbl.setText("Documento");
-
-        txtIdExpdiente.setText("100");
 
         apMLbl.setText("Tipo Documento");
 
@@ -267,14 +293,14 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbCuentaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(phoneLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(cmbCuentaBanco1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(txtIdExpdiente, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,13 +340,13 @@ public class FormDocumento extends javax.swing.JPanel {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(phoneLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbCuentaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(phoneLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbCuentaBanco1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdExpdiente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -339,15 +365,15 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnGuardarDemanda.setBackground(new java.awt.Color(18, 90, 173));
-        btnGuardarDemanda.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnGuardarDemanda.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarDemanda.setText("Firmar Documento");
-        btnGuardarDemanda.setBorderPainted(false);
-        btnGuardarDemanda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGuardarDemanda.addActionListener(new java.awt.event.ActionListener() {
+        btnFirmar.setBackground(new java.awt.Color(18, 90, 173));
+        btnFirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnFirmar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFirmar.setText("Firmar Documento");
+        btnFirmar.setBorderPainted(false);
+        btnFirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarDemandaActionPerformed(evt);
+                btnFirmarActionPerformed(evt);
             }
         });
 
@@ -360,7 +386,7 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardarDemanda, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -368,7 +394,7 @@ public class FormDocumento extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(134, 134, 134)
-                .addComponent(btnGuardarDemanda, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -380,100 +406,118 @@ public class FormDocumento extends javax.swing.JPanel {
 
     }
 
-    private void btnGuardarDemandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDemandaActionPerformed
+    private void btnFirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarActionPerformed
         // TODO add your handling code here:
+        Gson gson = new Gson();
+        Documento doc = new Documento();
+        doc.setIdDocumento(Integer.parseInt(txtIdDocumento.getText()));
 
-//        int fila = 0;
-//        int total = 0;
-//        for (int i = 0; i < jTableCuentaDetalle.getRowCount(); i++) {
-//            fila = Integer.parseInt(jTableCuentaDetalle.getValueAt(i, 1).toString());
-//
-//            total += fila;
-//        }
-//        int contador;
-//
-//        if (total == 0) {
-//            contador = 1;
-//        } else {
-//            contador = jTableCuentaDetalle.getRowCount() + 1;
-//        }
-        //double calcularSaldo = 0;
-        //  String numdoc = cuentaEditar.getDocumento();
-        // MDemanda objCd = new MDemanda();
-//        objCd.setNrocuotadet(contador);
-//        objCd.setIngresodet(Double.parseDouble(txtIngresoDet.getText()));
-//        objCd.setSaldodet(calcularSaldo);
-//        //objCd.setCuentabancodet(txtCuentaBanco.getText());
-//        objCd.setCuentabancodet((String) cmbCuentaBanco.getSelectedItem());
-//        System.out.println("Combo getName" + (String) cmbCuentaBanco.getSelectedItem());
-//        objCd.setGlosadet(txtGlosa.getText());
-//        objCd.setIdmovimiento(idmovimiento);
-//        objCd.setDocumento(numdoc);
-//        System.out.println("objCuentaDetalle   >>>> " + objCd);
-//
-//        double ingresoDeuda = Double.parseDouble(txtIngresoDet.getText());
-//        double deudaPendiente = Double.parseDouble(txtDeudaPendiente.getText());
-//        if (ingresoDeuda > deudaPendiente) {
-//
-//            JOptionPane.showMessageDialog(null, "El Pago Supera la Deuda");
-//
-//        } else {
-//
-//            DDemanda dDemanda = new DDemanda();
-//            if (editar == true) {
-//                System.out.println("Ediatr Cuenta Detallle ::: " + editar);
-//                int rtaInsert = dDemanda.insertDemanda(objCd);
-//                System.out.println("Insert Cuenta Detalle:  " + rtaInsert);
-//                if (rtaInsert == 1) {
-//
-//                 //   MostrarListaCuentaDetalle(objCd);
-//                   // Mostrar(cuentaEditar);
-//                    //LimpiarTexto();
-//                }
-//
-//            }
-//        }
+        DDocumento ddoc = new DDocumento();
+        List<Documento> documentos = new ArrayList<>();
+        documentos = ddoc.SelectByIdDocumento(doc);
 
-        /*
-        LineaCredito obj = new LineaCredito();
-        obj.setNombre_cliente(txtcliente.getText());
-        obj.setRuc_cliente(txtRUC.getText());
-        obj.setDias_credito(Integer.parseInt(txtdiascredito.getText()));
-        obj.setMonto_maximo(Double.parseDouble(txtMontoMaximo.getText()));
-        obj.setMoneda(txtMoneda.getText());
-        obj.setUsuario_registro("chuamanic");
-        obj.setRiesgo_crediticio(editar ? lineaCreditoEditar.getRiesgo_crediticio() : "medio");
-        
+        for (Documento documento : documentos) {
+            try {
+                Informacion data = new Informacion();
+                data.setNombre(documento.getNombreDocumento());
+                String decodedString = new String(documento.getArchivoOrigen(), StandardCharsets.UTF_8);
+                data.setData(decodedString);
 
-        System.out.println("Valores: >>>>>" + obj);
+                String json = gson.toJson(data);
 
-        LineaCreditoJDBC lineaCreditoJDBC = new LineaCreditoJDBC();
-        if (editar == false) {
-            int rta = lineaCreditoJDBC.insertLineaCredito(obj);
+                // Crear el objeto HttpClient
+                HttpClient client = HttpClient.newHttpClient();
 
-            if (rta == 1) {
-                Dashboard.ShowJPanel(new LineaCreditoLista());
-                JOptionPane.showMessageDialog(null, "Se Agrego correctamente");
+                // Crear el objeto HttpRequest
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("http://localhost:8080/pki/firma"))
+                        .header("Content-Type", "application/json")
+                        .POST(BodyPublishers.ofString(json))
+                        .build();
+
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+                ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
+                
+                System.out.println("apiResponse:" + apiResponse.estado);
+
+                // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
+                if ("OK".equals(apiResponse.estado)) {
+                    byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
+
+                    // 7. Guardar el PDF
+                    Path path = Path.of("C:\\output.pdf");
+
+                    Files.write(path, pdfData);
+                    System.out.println("Archivo PDF guardado correctamente.");
+                } else {
+                    System.out.println("Estado no es OK, no se guardará el archivo.");
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            obj.setIdlc(lineaCreditoEditar.getIdlc());
 
-            int rta = lineaCreditoJDBC.updateLineaCredito(obj);
-
-            if (rta == 1) {
-                Dashboard.ShowJPanel(new LineaCreditoLista());
-                JOptionPane.showMessageDialog(null, "Se Modifico correctamente");
-            }
         }
-         */
 
-    }//GEN-LAST:event_btnGuardarDemandaActionPerformed
+
+    }//GEN-LAST:event_btnFirmarActionPerformed
+
+    private static class ApiResponse {
+
+        String estado;
+        String data;
+    }
+
+    public class Informacion {
+
+        private String data;
+        private String nombre;
+
+        public Informacion(String data, String nombre) {
+            this.data = data;
+            this.nombre = nombre;
+        }
+
+        public Informacion() {
+        }
+
+        public String getData() {
+            return data;
+        }
+
+        public void setData(String data) {
+            this.data = data;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+    }
+
+//    public byte[] firmarPdf(byte[] data) throws Exception {
+//        try {
+//            CertificadoDigital certificado = CertificateStore.getCertificateFromFile(Constante.CERTIFICADO, Constante.CLAVE);
+//            data = PadesFirma.firmarPdfAvanzado(data, certificado);
+//            return data;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     private void btnSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivoActionPerformed
         seleccionar_pdf();
     }//GEN-LAST:event_btnSeleccionarArchivoActionPerformed
 
-    public  int guardar_pdf(String nombredocumento, File ruta) {
+    public int guardar_pdf(String nombredocumento, File ruta) {
 
         Documento po = new Documento();
         DDocumento ddocumento = new DDocumento();
@@ -490,7 +534,7 @@ public class FormDocumento extends javax.swing.JPanel {
         }
         int InsertKey = ddocumento.insertDocumento(po);
         System.out.println("Despuest ddocumento.insertDocumento(po):" + InsertKey);
-        
+
         return InsertKey;
     }
 
@@ -515,11 +559,13 @@ public class FormDocumento extends javax.swing.JPanel {
     private void btnGuardarAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAdjuntoActionPerformed
         File ruta = new File(ruta_archivo);
         if (ruta_archivo.trim().length() != 0) {
-            int LlaveKey= guardar_pdf(ruta_archivo.trim(), ruta);
+            int LlaveKey = guardar_pdf(ruta_archivo.trim(), ruta);
             System.out.println("Despues de guardar_pdf:  ");
             tpdf.visualizar_PdfVO(jTablePDF, LlaveKey);
             ruta_archivo = "";
             this.btnSeleccionarArchivo.setText("");
+
+            this.txtIdDocumento.setText("" + LlaveKey);
 
         } else {
             JOptionPane.showMessageDialog(null, "Rellenar todo los campos");
@@ -528,7 +574,7 @@ public class FormDocumento extends javax.swing.JPanel {
 
     private void jTablePDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePDFMouseClicked
         // TODO add your handling code here:
-        
+
         int column = jTablePDF.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / jTablePDF.getRowHeight();
 
@@ -562,11 +608,11 @@ public class FormDocumento extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apMLbl;
     private javax.swing.JPanel bg;
+    private javax.swing.JButton btnFirmar;
     private javax.swing.JButton btnGuardarAdjunto;
-    private javax.swing.JButton btnGuardarDemanda;
     private javax.swing.JButton btnSeleccionarArchivo;
-    private javax.swing.JComboBox<String> cmbCuentaBanco;
-    private javax.swing.JComboBox<String> cmbCuentaBanco1;
+    private javax.swing.JComboBox<String> cmbCategoria;
+    private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JLabel domLbl;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel2;
@@ -577,7 +623,7 @@ public class FormDocumento extends javax.swing.JPanel {
     private javax.swing.JLabel phoneLbl1;
     private javax.swing.JTextField txtDeudaPendiente;
     private javax.swing.JTextField txtFactura1;
-    private javax.swing.JTextField txtIdExpdiente;
+    private javax.swing.JTextField txtIdDocumento;
     private javax.swing.JTextField txtIngresoDet;
     // End of variables declaration//GEN-END:variables
 }
