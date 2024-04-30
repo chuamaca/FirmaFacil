@@ -3,16 +3,15 @@ package com.dcode.firmafacil;
 import com.dcode.firmafacil.Data.DDocumento;
 import com.dcode.firmafacil.Data.Tabla_PdfVO;
 import com.dcode.firmafacil.Modelo.Documento;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-
-
-
 
 public class FormDocumento extends javax.swing.JPanel {
 
@@ -22,10 +21,11 @@ public class FormDocumento extends javax.swing.JPanel {
     String ruta_archivo = "";
     Tabla_PdfVO tpdf = new Tabla_PdfVO();
     int id = -1;
+
     public FormDocumento() {
         initComponents();
         InitStyles();
-      // CargarCuentaBancoCMB();
+        // CargarCuentaBancoCMB();
     }
     //Sobreescritura
 
@@ -38,7 +38,6 @@ public class FormDocumento extends javax.swing.JPanel {
 //      //  Mostrar(mDemandaEdit);
 //
 //    }
-
 //    public void CargarCuentaBancoCMB() {
 //        cmbCuentaBanco.removeAllItems();
 //        UtilitariosJDBC utilJdbc = new UtilitariosJDBC();
@@ -53,7 +52,6 @@ public class FormDocumento extends javax.swing.JPanel {
 //            cmbCuentaBanco.addItem(poldat.rtstr1);
 //        }
 //    }
-
 //    public void Mostrar(MDemanda objMDemanda) {
 //
 //        //CargarCuentaBancoCMB();
@@ -97,7 +95,6 @@ public class FormDocumento extends javax.swing.JPanel {
 //        jTableCuentaCabecera.setModel(modelo);
 //
 //    }
-
 //    public void MostrarListaCuentaDetalle(CuentaDetalle objCuentaDetalle) {
 //
 //        System.out.println("Mostrar Cuenta Detalle !!!! ");
@@ -137,7 +134,6 @@ public class FormDocumento extends javax.swing.JPanel {
 //        jTableCuentaDetalle.setModel(modelo);
 //
 //    }
-
     private void InitStyles() {
 
 //        if (demandaEditar != null) {
@@ -191,6 +187,8 @@ public class FormDocumento extends javax.swing.JPanel {
 
         nameLbl.setText("Documento");
 
+        txtIdExpdiente.setText("100");
+
         apMLbl.setText("Tipo Documento");
 
         domLbl.setText("Nombre");
@@ -208,6 +206,11 @@ public class FormDocumento extends javax.swing.JPanel {
             }
         ));
         jTablePDF.setGridColor(new java.awt.Color(255, 255, 255));
+        jTablePDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePDFMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTablePDF);
 
         header1.setBackground(new java.awt.Color(25, 118, 210));
@@ -261,30 +264,6 @@ public class FormDocumento extends javax.swing.JPanel {
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apMLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(domLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 87, Short.MAX_VALUE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2)))
-                .addContainerGap())
-            .addGroup(bgLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,11 +276,34 @@ public class FormDocumento extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addComponent(txtIdExpdiente, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(bgLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(775, Short.MAX_VALUE)))
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(apMLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(domLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 503, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
+                .addContainerGap())
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -330,15 +332,11 @@ public class FormDocumento extends javax.swing.JPanel {
                     .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                    .addContainerGap(192, Short.MAX_VALUE)
-                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(143, 143, 143)))
         );
 
         btnGuardarDemanda.setBackground(new java.awt.Color(18, 90, 173));
@@ -376,9 +374,9 @@ public class FormDocumento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LimpiarTexto() {
-        txtIngresoDet.setText(null);
+//        txtIngresoDet.setText(null);
         //txtCuentaBanco.setText(null);
-        txtGlosa.setText(null);
+//        txtGlosa.setText(null);
 
     }
 
@@ -399,15 +397,9 @@ public class FormDocumento extends javax.swing.JPanel {
 //        } else {
 //            contador = jTableCuentaDetalle.getRowCount() + 1;
 //        }
-
         //double calcularSaldo = 0;
-       
-      //  String numdoc = cuentaEditar.getDocumento();
-      
-        
-        
-       // MDemanda objCd = new MDemanda();
-
+        //  String numdoc = cuentaEditar.getDocumento();
+        // MDemanda objCd = new MDemanda();
 //        objCd.setNrocuotadet(contador);
 //        objCd.setIngresodet(Double.parseDouble(txtIngresoDet.getText()));
 //        objCd.setSaldodet(calcularSaldo);
@@ -417,7 +409,6 @@ public class FormDocumento extends javax.swing.JPanel {
 //        objCd.setGlosadet(txtGlosa.getText());
 //        objCd.setIdmovimiento(idmovimiento);
 //        objCd.setDocumento(numdoc);
-
 //        System.out.println("objCuentaDetalle   >>>> " + objCd);
 //
 //        double ingresoDeuda = Double.parseDouble(txtIngresoDet.getText());
@@ -482,7 +473,7 @@ public class FormDocumento extends javax.swing.JPanel {
         seleccionar_pdf();
     }//GEN-LAST:event_btnSeleccionarArchivoActionPerformed
 
-     public void guardar_pdf(int IdDocumento, String nombredocumento, File ruta) {
+    public  int guardar_pdf(String nombredocumento, File ruta) {
 
         Documento po = new Documento();
         DDocumento ddocumento = new DDocumento();
@@ -492,13 +483,18 @@ public class FormDocumento extends javax.swing.JPanel {
             InputStream input = new FileInputStream(ruta);
             input.read(pdf);
             po.setArchivoOrigen(pdf);
+            System.out.println("Archivo Origen: " + po.getArchivoOrigen());
         } catch (IOException ex) {
             po.setArchivoOrigen(null);
             //System.out.println("Error al agregar archivo pdf "+ex.getMessage());
         }
-        ddocumento.insertAnexo(po);
+        int InsertKey = ddocumento.insertDocumento(po);
+        System.out.println("Despuest ddocumento.insertDocumento(po):" + InsertKey);
+        
+        return InsertKey;
     }
-     public void seleccionar_pdf() {
+
+    public void seleccionar_pdf() {
         JFileChooser j = new JFileChooser();
         FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf");
         j.setFileFilter(fi);
@@ -515,15 +511,13 @@ public class FormDocumento extends javax.swing.JPanel {
         } else {
         }
     }
-    
-    private void btnGuardarAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAdjuntoActionPerformed
-        // TODO add your handling code here:
-       int idDocumento=Integer.parseInt(txtIdExpdiente.getText());
 
+    private void btnGuardarAdjuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAdjuntoActionPerformed
         File ruta = new File(ruta_archivo);
         if (ruta_archivo.trim().length() != 0) {
-            guardar_pdf(idDocumento, ruta_archivo.trim(), ruta);
-            tpdf.visualizar_PdfVO(jTablePDF, idDocumento);
+            int LlaveKey= guardar_pdf(ruta_archivo.trim(), ruta);
+            System.out.println("Despues de guardar_pdf:  ");
+            tpdf.visualizar_PdfVO(jTablePDF, LlaveKey);
             ruta_archivo = "";
             this.btnSeleccionarArchivo.setText("");
 
@@ -531,6 +525,38 @@ public class FormDocumento extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Rellenar todo los campos");
         }
     }//GEN-LAST:event_btnGuardarAdjuntoActionPerformed
+
+    private void jTablePDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePDFMouseClicked
+        // TODO add your handling code here:
+        
+        int column = jTablePDF.getColumnModel().getColumnIndexAtX(evt.getX());
+        int row = evt.getY() / jTablePDF.getRowHeight();
+
+        if (row < jTablePDF.getRowCount() && row >= 0 && column < jTablePDF.getColumnCount() && column >= 0) {
+            id = (int) jTablePDF.getValueAt(row, 0);
+            Object value = jTablePDF.getValueAt(row, column);
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
+                JButton boton = (JButton) value;
+
+                if (boton.getText().equals("Vacio")) {
+                    JOptionPane.showMessageDialog(null, "No hay archivo");
+                } else {
+                    DDocumento pd = new DDocumento();
+                    System.out.println("ejecutar_archivoPDF: " + id);
+                    pd.ejecutar_archivoPDF(id);
+                    try {
+                        Desktop.getDesktop().open(new File("new.pdf"));
+                    } catch (Exception ex) {
+                    }
+                }
+
+            } else {
+                String name = "" + jTablePDF.getValueAt(row, 1);
+//                txtname.setText(name);
+            }
+        }
+    }//GEN-LAST:event_jTablePDFMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

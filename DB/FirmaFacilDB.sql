@@ -104,12 +104,8 @@ CREATE TABLE Servicio(
 );
 
 
-
-
-
-
-
-
+alter table Documento
+alter column NombreDocumento varchar(max)
 
 
 

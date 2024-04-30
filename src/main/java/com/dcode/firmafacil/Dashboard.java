@@ -5,7 +5,6 @@
  */
 package com.dcode.firmafacil;
 
-
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -56,21 +55,14 @@ public class Dashboard extends javax.swing.JFrame {
         JLabel label = new JLabel("¡Esta es una ventana sin botón de cerrar!");
         add(label);
 
-
         setSize(400, 300);
         setLocationRelativeTo(null);
         setVisible(true);
-        
-        
-        
 
         initComponents();
         InitStyles();
         SetDate();
         InitContent();
-        
-        
-        
 
     }
 
@@ -95,11 +87,9 @@ public class Dashboard extends javax.swing.JFrame {
 //        dateText.setForeground(Color.white);
         appName2.putClientProperty("FlatLaf.style", "font: bold $h1.regular.font");
         appName2.setForeground(Color.white);
-        
+
 //                      String sesion = SesionManager.cargarSesion("usuariosesion");
 //              appName2.setText( sesion);
-        
-
     }
 
     private void SetDate() {
@@ -136,13 +126,8 @@ public class Dashboard extends javax.swing.JFrame {
         menu = new javax.swing.JPanel();
         appName2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        btn_prin = new javax.swing.JButton();
-        btn_Notificaciones = new javax.swing.JButton();
-        btn_Demanda = new javax.swing.JButton();
-        btnCriterios = new javax.swing.JButton();
-        btn_reportes = new javax.swing.JButton();
-        btn_reports = new javax.swing.JButton();
         appName = new javax.swing.JLabel();
+        btn_prin = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,11 +144,14 @@ public class Dashboard extends javax.swing.JFrame {
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));
 
+        appName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        appName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        appName.setText("FIRMA FACIL [FIRMA ELECTRONICA]");
+
         btn_prin.setBackground(new java.awt.Color(21, 101, 192));
         btn_prin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_prin.setForeground(new java.awt.Color(255, 255, 255));
         btn_prin.setText("Registrar Partes");
-        btn_prin.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_prin.setBorderPainted(false);
         btn_prin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_prin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -175,100 +163,10 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        btn_Notificaciones.setBackground(new java.awt.Color(21, 101, 192));
-        btn_Notificaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_Notificaciones.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Notificaciones.setText("Notificaciones");
-        btn_Notificaciones.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_Notificaciones.setBorderPainted(false);
-        btn_Notificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_Notificaciones.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_Notificaciones.setIconTextGap(13);
-        btn_Notificaciones.setInheritsPopupMenu(true);
-        btn_Notificaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_NotificacionesActionPerformed(evt);
-            }
-        });
-
-        btn_Demanda.setBackground(new java.awt.Color(21, 101, 192));
-        btn_Demanda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_Demanda.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Demanda.setText("Demanda");
-        btn_Demanda.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_Demanda.setBorderPainted(false);
-        btn_Demanda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_Demanda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_Demanda.setIconTextGap(13);
-        btn_Demanda.setInheritsPopupMenu(true);
-        btn_Demanda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_DemandaActionPerformed(evt);
-            }
-        });
-
-        btnCriterios.setBackground(new java.awt.Color(21, 101, 192));
-        btnCriterios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCriterios.setForeground(new java.awt.Color(255, 255, 255));
-        btnCriterios.setText("Configuracion De Criterios");
-        btnCriterios.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btnCriterios.setBorderPainted(false);
-        btnCriterios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnCriterios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnCriterios.setIconTextGap(13);
-        btnCriterios.setInheritsPopupMenu(true);
-        btnCriterios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCriteriosActionPerformed(evt);
-            }
-        });
-
-        btn_reportes.setBackground(new java.awt.Color(21, 101, 192));
-        btn_reportes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_reportes.setForeground(new java.awt.Color(255, 255, 255));
-        btn_reportes.setText("Consultar Expediente");
-        btn_reportes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_reportes.setBorderPainted(false);
-        btn_reportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_reportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_reportes.setIconTextGap(13);
-        btn_reportes.setInheritsPopupMenu(true);
-        btn_reportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_reportesActionPerformed(evt);
-            }
-        });
-
-        btn_reports.setBackground(new java.awt.Color(21, 101, 192));
-        btn_reports.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_reports.setForeground(new java.awt.Color(255, 255, 255));
-        btn_reports.setText("Usuarios del Sistema");
-        btn_reports.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_reports.setBorderPainted(false);
-        btn_reports.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_reports.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_reports.setIconTextGap(13);
-        btn_reports.setInheritsPopupMenu(true);
-        btn_reports.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_reportsActionPerformed(evt);
-            }
-        });
-
-        appName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        appName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        appName.setText("Sistema de Arbitraje");
-
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_Notificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCriterios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_Demanda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_reportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_reports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuLayout.createSequentialGroup()
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuLayout.createSequentialGroup()
@@ -278,6 +176,10 @@ public class Dashboard extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(appName2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(menuLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -289,32 +191,16 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(menuLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(appName2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(44, 44, 44)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btn_Notificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(btnCriterios, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btn_Demanda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(btn_reportes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(btn_reports, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(menuLayout.createSequentialGroup()
                     .addGap(62, 62, 62)
                     .addComponent(appName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(509, Short.MAX_VALUE)))
+                    .addContainerGap(497, Short.MAX_VALUE)))
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -325,17 +211,19 @@ public class Dashboard extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                 .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+            .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                    .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -355,33 +243,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prinActionPerformed
-      
+        ShowJPanel(new FormDocumento());
     }//GEN-LAST:event_btn_prinActionPerformed
-
-    private void btn_NotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NotificacionesActionPerformed
-        
-    }//GEN-LAST:event_btn_NotificacionesActionPerformed
-
-    private void btn_DemandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DemandaActionPerformed
-        //ShowJPanel(new Returns());
-
-      
-
-
-    }//GEN-LAST:event_btn_DemandaActionPerformed
-
-    private void btnCriteriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriteriosActionPerformed
-        
-    }//GEN-LAST:event_btnCriteriosActionPerformed
-
-    private void btn_reportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reportsActionPerformed
-       
-
-    }//GEN-LAST:event_btn_reportsActionPerformed
-
-    private void btn_reportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reportesActionPerformed
-      
-    }//GEN-LAST:event_btn_reportesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,12 +267,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel appName;
     private javax.swing.JLabel appName2;
     private javax.swing.JPanel background;
-    private javax.swing.JButton btnCriterios;
-    private javax.swing.JButton btn_Demanda;
-    private javax.swing.JButton btn_Notificaciones;
     private javax.swing.JButton btn_prin;
-    private javax.swing.JButton btn_reportes;
-    private javax.swing.JButton btn_reports;
     private static javax.swing.JPanel content;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel menu;

@@ -1,4 +1,3 @@
-
 package com.dcode.firmafacil.Data;
 
 import com.dcode.firmafacil.Modelo.Documento;
@@ -15,10 +14,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Cesar
  */
 public class Tabla_PdfVO extends javax.swing.JFrame {
-    
-      DDocumento dao=null;
-    
-       public void visualizar_PdfVO(JTable tabla, int idDocumento) {
+
+    DDocumento dao = null;
+
+    public void visualizar_PdfVO(JTable tabla, int idDocumento) {
+
+        System.out.println("visualizar_PdfVO: " + idDocumento);
         tabla.setDefaultRenderer(Object.class, new imgTabla());
         DefaultTableModel dt = new DefaultTableModel() {
             @Override
@@ -38,12 +39,13 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
         }
 
         dao = new DDocumento();
-           Documento vo = new Documento();
-           
-           Documento doc= new Documento();
-           doc.IdDocumento=idDocumento;
-        List<Documento> list = dao.SelectByNroExpediente(doc);
+        Documento vo = new Documento();
 
+        Documento doc = new Documento();
+        doc.IdDocumento = idDocumento;
+        List<Documento> list = dao.SelectByIdDocumento(doc);
+
+        System.out.println(" List<Documento> list = dao.SelectByIdDocumento(doc): " + list.toString());
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 Object fila[] = new Object[4];
@@ -51,7 +53,7 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
                 fila[0] = vo.getIdDocumento();
                 fila[1] = vo.getTipoDocumento();
                 fila[2] = vo.getNombreDocumento();
-                if (vo.getArchivoOrigen()!= null) {
+                if (vo.getArchivoOrigen() != null) {
                     fila[3] = new JButton(icono);
                 } else {
                     fila[3] = new JButton("Vacio");
