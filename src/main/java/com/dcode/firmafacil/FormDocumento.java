@@ -56,128 +56,9 @@ public class FormDocumento extends javax.swing.JPanel {
         cmbCategoria.addItem("AVANZADA");
     }
 
-    //Sobreescritura
-//    public PlantillaCrud(MDemanda mDemandaEdit) {
-//        System.out.println("Inicializando Cuenta CRUD" + mDemandaEdit);
-//        initComponents();
-//        editar = true;
-//        this.demandaEditar = mDemandaEdit;
-//        InitStyles();
-//      //  Mostrar(mDemandaEdit);
-//
-//    }
-//    public void CargarCuentaBancoCMB() {
-//        cmbCuentaBanco.removeAllItems();
-//        UtilitariosJDBC utilJdbc = new UtilitariosJDBC();
-//        List<Poldat> cuentasList = utilJdbc.SelectCuentasBancosCmb();
-//        System.out.println("Cargar Combo: " + cuentasList);
-////
-////        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(cuentasList.toArray(new String[0]));
-////        cmbCuentaBanco.setModel(model);
-//
-//        for (Poldat poldat : cuentasList) {
-//            System.out.println("Llenando Combo: " + poldat.rtstr1);
-//            cmbCuentaBanco.addItem(poldat.rtstr1);
-//        }
-//    }
-//    public void Mostrar(MDemanda objMDemanda) {
-//
-//        //CargarCuentaBancoCMB();
-//
-//        System.out.println("Mostrar Cuenta!!!! ");
-//
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        modelo.addColumn("Cliente");
-//        modelo.addColumn("FormDocumento");
-//        modelo.addColumn("Total");
-//        modelo.addColumn("Pago Inicial");
-//        modelo.addColumn("D. Cancelada");
-//        modelo.addColumn("#N. Cuotas");
-//
-//        jTableCuentaCabecera.setModel(modelo);
-//
-//        DDemanda dDemanda = new DDemanda();
-//        MDemanda mDemandaList = dDemanda.SelectByDocument(objCuenta);
-//        System.out.println(" Traer datos " + cuentaCobrarList);
-//
-//        String cuentasForTable[] = new String[6];
-//
-//        /*
-//    cliente, numerodocumento, total, pagoinicial, pagos, coutas
-//    
-//    idMovimiento, ruc, cliente, documento, deudacancelada, saldo, deudatotal, usuario, glosa, numerocuotas, fecharegistro
-//         */
-//        cuentasForTable[0] = mDemandaList.getCliente();
-//        cuentasForTable[1] = mDemandaList.getDocumento();
-//        cuentasForTable[2] = "" + mDemandaList.getDeudatotal();
-//        cuentasForTable[3] = "";
-//        cuentasForTable[4] = "" + mDemandaList.getDeudacancelada();
-//        cuentasForTable[5] = "" + mDemandaList.getNumerocuotas();
-//
-//        double imputDeuda = (mDemandaList.getDeudatotal() - mDemandaList.getDeudacancelada());
-//
-//        txtDeudaPendiente.setText("" + imputDeuda);
-//
-//        modelo.addRow(cuentasForTable);
-//
-//        jTableCuentaCabecera.setModel(modelo);
-//
-//    }
-//    public void MostrarListaCuentaDetalle(CuentaDetalle objCuentaDetalle) {
-//
-//        System.out.println("Mostrar Cuenta Detalle !!!! ");
-//
-//        /*
-//        numerodocumento, nrocuotadet, ingresodet, saldodet, cuentabancodet, glosadet, fechapagodet
-//         */
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        modelo.addColumn("FormDocumento");
-//        modelo.addColumn("#N. Cuota");
-//        modelo.addColumn("Pago Realizado");
-//        modelo.addColumn("Saldo");
-//        modelo.addColumn("Cuenta Banco");
-//        modelo.addColumn("Glosa");
-//        modelo.addColumn("F.Pago");
-//
-//        jTableCuentaDetalle.setModel(modelo);
-//
-//        CuentaDetalleJDBC cuentaDet = new CuentaDetalleJDBC();
-//
-//        List<domain.CuentaDetalle> cuentaDetalleList = cuentaDet.SelectByDocumentList(objCuentaDetalle);
-//
-//        String cuentasForTable[] = new String[7];
-//
-//        for (domain.CuentaDetalle item : cuentaDetalleList) {
-//            cuentasForTable[0] = item.getDocumento();
-//            cuentasForTable[1] = "" + item.getNrocuotadet();
-//            cuentasForTable[2] = "" + item.getIngresodet();
-//            cuentasForTable[3] = "" + item.getSaldodet();
-//            cuentasForTable[4] = item.getCuentabancodet();
-//            cuentasForTable[5] = item.getGlosadet();
-//            cuentasForTable[6] = item.getFechapagodet();
-//
-//            modelo.addRow(cuentasForTable);
-//
-//        }
-//        jTableCuentaDetalle.setModel(modelo);
-//
-//    }
     private void InitStyles() {
 
-//        if (demandaEditar != null) {
-//
-//            //Mostrar(cuentaEditar);
-//            System.out.println("InitStyles >>> " + demandaEditar);
-//
-//         //   txtFactura.setText(demandaEditar.getDocumento());
-//           // txtDeudaPendiente.setEnabled(false);
-//
-//       //     String doc = cuentaEditar.getDocumento();
-//         //   CuentaDetalle cuentaDet = new CuentaDetalle();
-//           // cuentaDet.setDocumento(doc);
-//            //MostrarListaCuentaDetalle(cuentaDet);
-//
-//        }
+
     }
 
     /**
@@ -207,6 +88,7 @@ public class FormDocumento extends javax.swing.JPanel {
         phoneLbl1 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         txtFactura1 = new javax.swing.JTextField();
+        domLbl1 = new javax.swing.JLabel();
         btnFirmar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -264,7 +146,7 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        btnSeleccionarArchivo.setText("Cargar Archivo");
+        btnSeleccionarArchivo.setText("Seleccionar Archivo...");
         btnSeleccionarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarArchivoActionPerformed(evt);
@@ -285,6 +167,8 @@ public class FormDocumento extends javax.swing.JPanel {
 
         phoneLbl1.setText("Firma Categoria");
 
+        domLbl1.setText("Id Documento");
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -297,38 +181,41 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(phoneLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(55, 55, 55)
+                        .addComponent(domLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22))
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(apMLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(domLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 503, Short.MAX_VALUE))))
+                        .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(apMLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(domLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2)))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
+                                .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardarAdjunto)))
+                        .addGap(40, 40, 40)))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -338,31 +225,37 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(phoneLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(phoneLbl)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(phoneLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(domLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(phoneLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(domLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(apMLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardarAdjunto)
+                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnFirmar.setBackground(new java.awt.Color(18, 90, 173));
@@ -382,20 +275,20 @@ public class FormDocumento extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addComponent(btnFirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134)
-                .addComponent(btnFirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFirmar)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -420,10 +313,11 @@ public class FormDocumento extends javax.swing.JPanel {
             try {
                 Informacion data = new Informacion();
                 data.setNombre(documento.getNombreDocumento());
-                String decodedString = new String(documento.getArchivoOrigen(), StandardCharsets.UTF_8);
-                data.setData(decodedString);
+                String base64String = Base64.getEncoder().encodeToString(documento.getArchivoOrigen());
+                data.setData(base64String);
 
                 String json = gson.toJson(data);
+                System.out.println("json: " + json);
 
                 // Crear el objeto HttpClient
                 HttpClient client = HttpClient.newHttpClient();
@@ -434,19 +328,21 @@ public class FormDocumento extends javax.swing.JPanel {
                         .header("Content-Type", "application/json")
                         .POST(BodyPublishers.ofString(json))
                         .build();
+                
+                System.out.println("request: " + request);
 
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                 ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
                 
-                System.out.println("apiResponse:" + apiResponse.estado);
+                System.out.println("apiResponse:" + apiResponse.data);
 
                 // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
                 if ("OK".equals(apiResponse.estado)) {
                     byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
 
                     // 7. Guardar el PDF
-                    Path path = Path.of("C:\\output.pdf");
+                    Path path = Path.of("D:\\output.pdf");
 
                     Files.write(path, pdfData);
                     System.out.println("Archivo PDF guardado correctamente.");
@@ -614,6 +510,7 @@ public class FormDocumento extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JLabel domLbl;
+    private javax.swing.JLabel domLbl1;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;

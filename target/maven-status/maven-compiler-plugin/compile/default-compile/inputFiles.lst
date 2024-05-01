@@ -1,15 +1,15 @@
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\Tabla_PdfVO.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\DDocumento.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Documento.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\imgTabla.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Cliente.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Auditoria.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Login.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Dashboard.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Usuario.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\PlantillaCrud.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Principal.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\ConexionJDBC.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\FormDocumento.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Categoria.java
-C:\WS PER\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Servicio.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Cliente.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\imgTabla.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\Tabla_PdfVO.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Usuario.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\ConexionJDBC.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\DDocumento.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Principal.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Categoria.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Login.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\PlantillaCrud.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Dashboard.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\FormDocumento.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Auditoria.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Servicio.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Documento.java

@@ -55,7 +55,7 @@ public class DDocumento {
             stmt.setString(4, documento.getTipoDocumento());
             stmt.setString(5, documento.getNombreDocumento());
             stmt.setInt(6, 1);
-            stmt.setInt(7, 3);
+            stmt.setInt(7, 1);
             stmt.setString(8, fechaCarga);
 
             System.out.println("ejecutando query:" + SQL_INSERT);
