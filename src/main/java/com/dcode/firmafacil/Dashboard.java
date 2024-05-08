@@ -176,10 +176,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(appName2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(menuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(menuLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -243,7 +240,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prinActionPerformed
-        ShowJPanel(new FormDocumento());
+        ShowJPanel(new FormListaDocumento());
     }//GEN-LAST:event_btn_prinActionPerformed
 
     /**

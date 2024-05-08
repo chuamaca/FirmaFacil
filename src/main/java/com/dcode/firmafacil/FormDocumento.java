@@ -58,7 +58,6 @@ public class FormDocumento extends javax.swing.JPanel {
 
     private void InitStyles() {
 
-
     }
 
     /**
@@ -229,30 +228,30 @@ public class FormDocumento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(domLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(domLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
                             .addComponent(phoneLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 3, Short.MAX_VALUE)
+                                .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cmbCategoria))))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(domLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(apMLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarAdjunto)
-                    .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDeudaPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGuardarAdjunto)
+                        .addComponent(txtFactura1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -301,113 +300,9 @@ public class FormDocumento extends javax.swing.JPanel {
 
     private void btnFirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarActionPerformed
         // TODO add your handling code here:
-        Gson gson = new Gson();
-        Documento doc = new Documento();
-        doc.setIdDocumento(Integer.parseInt(txtIdDocumento.getText()));
-
-        DDocumento ddoc = new DDocumento();
-        List<Documento> documentos = new ArrayList<>();
-        documentos = ddoc.SelectByIdDocumento(doc);
-
-        for (Documento documento : documentos) {
-            try {
-                Informacion data = new Informacion();
-                data.setNombre(documento.getNombreDocumento());
-                String base64String = Base64.getEncoder().encodeToString(documento.getArchivoOrigen());
-                data.setData(base64String);
-
-                String json = gson.toJson(data);
-                System.out.println("json: " + json);
-
-                // Crear el objeto HttpClient
-                HttpClient client = HttpClient.newHttpClient();
-
-                // Crear el objeto HttpRequest
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost:8080/pki/firma"))
-                        .header("Content-Type", "application/json")
-                        .POST(BodyPublishers.ofString(json))
-                        .build();
-                
-                System.out.println("request: " + request);
-
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-                ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
-                
-                System.out.println("apiResponse:" + apiResponse.data);
-
-                // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
-                if ("OK".equals(apiResponse.estado)) {
-                    byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
-
-                    // 7. Guardar el PDF
-                    Path path = Path.of("D:\\output.pdf");
-
-                    Files.write(path, pdfData);
-                    System.out.println("Archivo PDF guardado correctamente.");
-                } else {
-                    System.out.println("Estado no es OK, no se guardará el archivo.");
-                }
-
-            } catch (IOException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
 
 
     }//GEN-LAST:event_btnFirmarActionPerformed
-
-    private static class ApiResponse {
-
-        String estado;
-        String data;
-    }
-
-    public class Informacion {
-
-        private String data;
-        private String nombre;
-
-        public Informacion(String data, String nombre) {
-            this.data = data;
-            this.nombre = nombre;
-        }
-
-        public Informacion() {
-        }
-
-        public String getData() {
-            return data;
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-
-    }
-
-//    public byte[] firmarPdf(byte[] data) throws Exception {
-//        try {
-//            CertificadoDigital certificado = CertificateStore.getCertificateFromFile(Constante.CERTIFICADO, Constante.CLAVE);
-//            data = PadesFirma.firmarPdfAvanzado(data, certificado);
-//            return data;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
     private void btnSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivoActionPerformed
         seleccionar_pdf();

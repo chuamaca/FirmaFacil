@@ -124,39 +124,39 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="domLbl1" max="32767" attributes="0"/>
+                              <Component id="domLbl1" pref="19" max="32767" attributes="0"/>
                               <Component id="phoneLbl1" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cmbCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmbCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                                  <Component id="cmbCliente" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Component id="txtIdDocumento" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="cmbCategoria" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="nameLbl" max="32767" attributes="0"/>
+                      <Component id="nameLbl" pref="22" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="domLbl" alignment="3" max="32767" attributes="0"/>
                           <Component id="apMLbl" alignment="3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtIngresoDet" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtDeudaPendiente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btnGuardarAdjunto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtFactura1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnSeleccionarArchivo" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtIngresoDet" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtDeudaPendiente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btnGuardarAdjunto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFactura1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="135" max="-2" attributes="0"/>

@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author Cesar
  */
-public class Servicio extends Auditoria {
+public class Servicio extends Auditoria  {
 
     public int IdServicio;
     public int IdUsuario;
