@@ -19,6 +19,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import com.dcode.firmafacil.Modelo.Cliente;
+import com.dcode.firmafacil.Modelo.Categoria;
 
 /**
  *
@@ -33,7 +35,7 @@ public class DDocumento {
 
     private static final String SQL_SELECT_ID = "SELECT  ArchivoOrigen FROM FIRMAFACIL.dbo.Documento where IdDocumento =? and Estado=1";
 
-    public int insertDocumento(Documento documento) {
+    public int insertDocumento(Documento documento) { //, Cliente cli,Categoria cat
         System.out.println("InsertDocumento");
 
         Connection conn = null;
@@ -50,7 +52,9 @@ public class DDocumento {
             conn = ConexionJDBC.getConexion();
             stmt = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, 1);
-            stmt.setInt(2, 1);
+            stmt.setInt(2, 7);
+            //    stmt.setInt(1, cli.getIdCliente());
+           // stmt.setInt(2, cat.getIdCategoria());
             stmt.setBytes(3, documento.getArchivoOrigen());
             stmt.setString(4, documento.getTipoDocumento());
             stmt.setString(5, documento.getNombreDocumento());

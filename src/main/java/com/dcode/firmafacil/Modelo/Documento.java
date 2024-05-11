@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.dcode.firmafacil.Modelo;
 
 import java.sql.Date;
@@ -83,13 +79,13 @@ public class Documento extends Auditoria {
 //        this.ArchivoOrigen = ArchivoOrigen;
 //    }
 //
-//    public String getTipoDocumento() {
-//        return TipoDocumento;
-//    }
+    public String getTipoDocumento() {
+        return TipoDocumento;
+    }
 //
-//    public void setTipoDocumento(String TipoDocumento) {
-//        this.TipoDocumento = TipoDocumento;
-//    }
+    public void setTipoDocumento(String TipoDocumento) {
+        this.TipoDocumento = TipoDocumento;
+    }
 //
 //    public String getNombreDocumento() {
 //        return NombreDocumento;
