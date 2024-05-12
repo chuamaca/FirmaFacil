@@ -115,7 +115,7 @@ public class FormDocumento extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         txtIdDocumento = new javax.swing.JTextField();
         apMLbl = new javax.swing.JLabel();
-        txtIngresoDet = new javax.swing.JTextField();
+        txtNombreArchivo = new javax.swing.JTextField();
         domLbl = new javax.swing.JLabel();
         txtRutaArchivo = new javax.swing.JTextField();
         phoneLbl = new javax.swing.JLabel();
@@ -127,7 +127,7 @@ public class FormDocumento extends javax.swing.JPanel {
         phoneLbl1 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         domLbl1 = new javax.swing.JLabel();
-        txtNombreDocumento1 = new javax.swing.JTextField();
+        txtFormato = new javax.swing.JTextField();
         apMLbl1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePDF = new javax.swing.JTable();
@@ -139,9 +139,9 @@ public class FormDocumento extends javax.swing.JPanel {
         apMLbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         apMLbl.setText("Ruta");
 
-        txtIngresoDet.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIngresoDetActionPerformed(evt);
+                txtNombreArchivoActionPerformed(evt);
             }
         });
 
@@ -203,7 +203,7 @@ public class FormDocumento extends javax.swing.JPanel {
         domLbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         domLbl1.setText("Id Documento");
 
-        txtNombreDocumento1.setToolTipText("");
+        txtFormato.setToolTipText("");
 
         apMLbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         apMLbl1.setText("Archivo");
@@ -238,14 +238,14 @@ public class FormDocumento extends javax.swing.JPanel {
                                         .addGroup(bgLayout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(txtIngresoDet))
+                                .addComponent(txtNombreArchivo))
                             .addGap(18, 18, 18)
                             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(phoneLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(btnGuardarAdjunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                                     .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNombreDocumento1))))
+                                    .addComponent(txtFormato))))
                         .addComponent(domLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -276,8 +276,8 @@ public class FormDocumento extends javax.swing.JPanel {
                 .addComponent(domLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIngresoDet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFormato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -292,7 +292,6 @@ public class FormDocumento extends javax.swing.JPanel {
         ));
         jTablePDF.setGridColor(new java.awt.Color(255, 255, 255));
         jTablePDF.setShowGrid(true);
-        jTablePDF.setShowHorizontalLines(true);
         jTablePDF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePDFMouseClicked(evt);
@@ -336,7 +335,7 @@ public class FormDocumento extends javax.swing.JPanel {
 
             ruta_archivo = j.getSelectedFile().getAbsolutePath();
             this.txtRutaArchivo.setText(ruta_archivo);
-
+            this.txtNombreArchivo.setText(j.getSelectedFile().getName());
             if (ruta_archivo.length() > 0) {
                 btnGuardarAdjunto.setEnabled(true);
                 System.out.println("this.btnSeleccionarArchivo.enable(true): ");
@@ -417,9 +416,9 @@ public class FormDocumento extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTablePDFMouseClicked
 
-    private void txtIngresoDetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIngresoDetActionPerformed
+    private void txtNombreArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreArchivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIngresoDetActionPerformed
+    }//GEN-LAST:event_txtNombreArchivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -438,9 +437,9 @@ public class FormDocumento extends javax.swing.JPanel {
     private javax.swing.JTable jTablePDF;
     private javax.swing.JLabel phoneLbl;
     private javax.swing.JLabel phoneLbl1;
+    private javax.swing.JTextField txtFormato;
     private javax.swing.JTextField txtIdDocumento;
-    private javax.swing.JTextField txtIngresoDet;
-    private javax.swing.JTextField txtNombreDocumento1;
+    private javax.swing.JTextField txtNombreArchivo;
     private javax.swing.JTextField txtRutaArchivo;
     // End of variables declaration//GEN-END:variables
 }
