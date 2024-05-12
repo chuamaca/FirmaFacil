@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import com.dcode.firmafacil.Data.DDocumentoFirmado;
 
 public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
@@ -44,35 +45,38 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
         }
     }
 
-    public void Mostrar1() {
+    public void ListarDocumentosFirmados() {
 
         String selecCliente = (String) cmbCliente2.getSelectedItem();
+        int codigoCliente = obtenerCodigoClientePorNombre(selecCliente);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("IdDocumento");
+          modelo.addColumn("NombreDocumento");
         modelo.addColumn("Empresa");
         modelo.addColumn("Categoria");
-        modelo.addColumn("Firmado");
-        modelo.addColumn("FechaServicio");
+        modelo.addColumn("Ruta");
+        modelo.addColumn("FechaFirma");
         modelo.addColumn("FechaVigencia");
+         modelo.addColumn("NombreUsuario");
 
         jTableServicioDocumento.setModel(modelo);
 
-        DServicio servicio = new DServicio();
-        List<ServicioDocumento> serviciodocumentoList = servicio.SelectDocumentoByCliente(1);
+        DDocumentoFirmado documentoFirmado = new DDocumentoFirmado();
+        List<ServicioDocumento> serviciodocumentoList = documentoFirmado.SelectDocumentoByCliente(codigoCliente);
         System.out.println(" Traer datos " + serviciodocumentoList);
 
         String servicioDocForTable[] = new String[8];
         for (ServicioDocumento item : serviciodocumentoList) {
 
             servicioDocForTable[0] = "" + item.getIdDocumento();
-            servicioDocForTable[1] = item.getEmpresa();
-            servicioDocForTable[2] = item.getCategoria();
-            servicioDocForTable[3] = "*.pdf";
-            servicioDocForTable[4] = "" + item.getIdServicio();
+            servicioDocForTable[1] = "" + item.getNombreDocumento();
+            servicioDocForTable[2] = item.getEmpresa();
+            servicioDocForTable[3] = item.getCategoria();
+            servicioDocForTable[4] = "" + item.getArchivoOrigen();
             servicioDocForTable[5] = "" + item.getFechaServicio();
             servicioDocForTable[6] = "" + item.getFechaVigencia();
-            servicioDocForTable[6] = item.getUsuarioFirma();
+            servicioDocForTable[7] = item.getUsuarioFirma();
             modelo.addRow(servicioDocForTable);
         }
 
@@ -221,6 +225,12 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private int obtenerCodigoClientePorNombre(String selecCliente) {
+       DDocumentoFirmado dCliente = new DDocumentoFirmado();
+    return dCliente.obtenerCodigoClientePorNombre(selecCliente); 
+    
+    }
+
     private static class ApiResponse {
 
         String estado;
@@ -261,6 +271,8 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
     private void btnRegistrarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDocumentoActionPerformed
         // TODO add your handling code here:
+        ListarDocumentosFirmados();
+        
     }//GEN-LAST:event_btnRegistrarDocumentoActionPerformed
 
 

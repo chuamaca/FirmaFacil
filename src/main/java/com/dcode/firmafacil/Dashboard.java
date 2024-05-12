@@ -274,7 +274,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListaDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaDocumentoActionPerformed
-        ShowJPanel(new FormListaDocumentoFirmado());
+        ShowJPanel(new FormListaDocumento());
     }//GEN-LAST:event_btnListaDocumentoActionPerformed
 
     private void btnRegistrarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDocumentoActionPerformed

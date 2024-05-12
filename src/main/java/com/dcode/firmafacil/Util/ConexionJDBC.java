@@ -19,10 +19,10 @@ public class ConexionJDBC {
 
     public static Connection getConexion() {
 
-       String conexionServer = "jdbc:sqlserver://dcode;"
+       String conexionServer = "jdbc:sqlserver://DESKTOP-GH5VMH1;"
                 + "database=FirmaFacil;"
                 + "user=sa;"
-                + "password=BANKpower9719;"
+                + "password=Sena123;"
                 + "loginTimeout=30;"
                 + "encrypt=true;"
                 + "trustServerCertificate=True;";
