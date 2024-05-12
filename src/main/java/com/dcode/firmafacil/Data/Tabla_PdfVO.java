@@ -17,8 +17,7 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
 
     DDocumento dao = null;
 
-    public void visualizar_PdfVO(JTable tabla, int idDocumento) {
-
+    public void MostrarGrillaArchivoCargado(JTable tabla, int idDocumento) {
         System.out.println("visualizar_PdfVO: " + idDocumento);
         tabla.setDefaultRenderer(Object.class, new imgTabla());
         DefaultTableModel dt = new DefaultTableModel() {
@@ -27,14 +26,14 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
                 return false;
             }
         };
-        dt.addColumn("Id");
-        dt.addColumn("Tipo Documentos");
-        dt.addColumn("Nombre pdf");
+        
+        dt.addColumn("Ruta Origen");
         dt.addColumn("Ver Pdf");
+        dt.addColumn("Id");
 
         ImageIcon icono = null;
-        if (get_Image("/Imagen/32pdf.png") != null) {
-            icono = new ImageIcon(get_Image("/Imagen/32pdf.png"));
+        if (get_Image("/Imagen/179483.png") != null) {
+            icono = new ImageIcon(get_Image("/Imagen/179483.png"));
             System.out.println("Icono: " + icono);
         }
 
@@ -50,19 +49,19 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 Object fila[] = new Object[4];
                 vo = list.get(i);
-                fila[0] = vo.getIdDocumento();
-                fila[1] = vo.getTipoDocumento();
-                fila[2] = vo.getNombreDocumento();
+                
+                fila[0] = vo.getNombreDocumento();
                 if (vo.getArchivoOrigen() != null) {
-                    fila[3] = new JButton(icono);
+                    fila[1] = new JButton(icono);
                 } else {
-                    fila[3] = new JButton("Vacio");
+                    fila[1] = new JButton("Vacio");
                 }
+                fila[2] = vo.getIdDocumento();
 
                 dt.addRow(fila);
             }
             tabla.setModel(dt);
-            tabla.setRowHeight(32);
+           
         }
     }
 

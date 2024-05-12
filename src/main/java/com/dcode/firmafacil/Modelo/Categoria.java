@@ -23,6 +23,22 @@ public class Categoria extends Auditoria {
         this.Descripcion = Descripcion;
     }
 
+    public Categoria() {
+    }
+     public Categoria(int IdCategoria, String Nombre) {
+        this.IdCategoria = IdCategoria;
+        this.Nombre = Nombre;
+       
+    }
+
+    @Override
+    public String toString() {
+        return  Nombre ;
+    }
+
+    
+    
+
     public Categoria(int IdCategoria, String Nombre, String Descripcion) {
         this.IdCategoria = IdCategoria;
         this.Nombre = Nombre;

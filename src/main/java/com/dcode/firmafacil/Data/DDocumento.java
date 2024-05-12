@@ -51,10 +51,9 @@ public class DDocumento {
         try {
             conn = ConexionJDBC.getConexion();
             stmt = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, 1);
-            stmt.setInt(2, 7);
-            //    stmt.setInt(1, cli.getIdCliente());
-           // stmt.setInt(2, cat.getIdCategoria());
+           
+            stmt.setInt(1, documento.getIdCliente());
+            stmt.setInt(2, documento.getIdCategoria());
             stmt.setBytes(3, documento.getArchivoOrigen());
             stmt.setString(4, documento.getTipoDocumento());
             stmt.setString(5, documento.getNombreDocumento());

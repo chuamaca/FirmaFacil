@@ -1,5 +1,6 @@
 package com.dcode.firmafacil.Data;
 
+import com.dcode.firmafacil.Modelo.Categoria;
 import com.dcode.firmafacil.Util.ConexionJDBC;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,23 +11,25 @@ import java.util.List;
 
 public class DCategoria {
 
-   // private static final String SQL_SELECT = "SELECT IdCategoria, Nombre, Descripcion FROM FIRMAFACIL.dbo.Categoria where Estado=1";
-
-    public List<String> ListCategoria() {
+    // private static final String SQL_SELECT = "SELECT IdCategoria, Nombre, Descripcion FROM FIRMAFACIL.dbo.Categoria where Estado=1";
+    public List<Categoria> ListCategoria() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<String> categorias = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        Categoria objCat = null;
 
         try {
-             conn = ConexionJDBC.getConexion();
-            String sql = "SELECT Nombre FROM FIRMAFACIL.dbo.Categoria where Estado=1";
+            conn = ConexionJDBC.getConexion();
+            String sql = "SELECT IdCategoria, Nombre FROM FIRMAFACIL.dbo.Categoria where Estado=1";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-               String categoria = rs.getString("Nombre"); // Aquí se cambia "DemandanteID" por "Nombre"
-                categorias.add(categoria);
+                objCat = new Categoria();
+                objCat.setIdCategoria(rs.getInt("IdCategoria"));
+                objCat.setNombre(rs.getString("Nombre"));
+                categorias.add(objCat);
             }
 
         } catch (SQLException ex) {

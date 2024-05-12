@@ -19,6 +19,11 @@ public class Cliente extends Auditoria {
     public String Telefono;
     public String Correo;
 
+    public Cliente() {
+    }
+
+    
+    
     public Cliente(int IdCliente, String Nombre, String NumeroDocumento, String Direccion, String Telefono, String Correo, int Estado, int UsuarioCrea, Date FechaCrea, int UsuarioModifica, Date FechaModifica, int UsuarioElimina, Date FechaElimina) {
         super(Estado, UsuarioCrea, FechaCrea, UsuarioModifica, FechaModifica, UsuarioElimina, FechaElimina);
         this.IdCliente = IdCliente;
@@ -27,6 +32,11 @@ public class Cliente extends Auditoria {
         this.Direccion = Direccion;
         this.Telefono = Telefono;
         this.Correo = Correo;
+    }
+    
+     public Cliente(int IdCliente, String Nombre) {
+        this.IdCliente = IdCliente;
+        this.Nombre = Nombre;
     }
 
     public Cliente(int IdCliente, String Nombre, String NumeroDocumento, String Direccion, String Telefono, String Correo) {
@@ -84,6 +94,11 @@ public class Cliente extends Auditoria {
 
     public void setCorreo(String Correo) {
         this.Correo = Correo;
+    }
+
+    @Override
+    public String toString() {
+        return Nombre;
     }
     
     

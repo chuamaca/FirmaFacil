@@ -5,6 +5,7 @@ import com.dcode.firmafacil.Data.DCategoria;
 import com.dcode.firmafacil.Data.DCliente;
 import com.dcode.firmafacil.Data.DDocumento;
 import com.dcode.firmafacil.Data.DServicio;
+import com.dcode.firmafacil.Modelo.Cliente;
 import com.dcode.firmafacil.Modelo.Documento;
 import com.dcode.firmafacil.Modelo.ServicioDocumento;
 import com.google.gson.Gson;
@@ -37,10 +38,10 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
     private void CargarCLiente() {
         DCliente dCliente = new DCliente();
-        List<String> clientes = dCliente.ListCliente();
+        List<Cliente> clientes = dCliente.ListCliente();
 
-        for (String nom : clientes) {
-            cmbCliente2.addItem(nom);
+        for (Cliente nom : clientes) {
+            cmbCliente2.addItem(nom.getNombre());
         }
     }
 

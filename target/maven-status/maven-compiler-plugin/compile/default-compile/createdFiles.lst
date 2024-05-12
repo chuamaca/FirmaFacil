@@ -33,6 +33,7 @@ com\dcode\firmafacil\Dashboard.class
 com\dcode\firmafacil\Dashboard$3.class
 com\dcode\firmafacil\FormDocumento$1.class
 com\dcode\firmafacil\FormListaDocumentoFirmado.class
+com\dcode\firmafacil\FormDocumento$6.class
 com\dcode\firmafacil\Modelo\ServicioDocumento.class
 com\dcode\firmafacil\FormListaDocumentoFirmado$1.class
 com\dcode\firmafacil\Modelo\Auditoria.class
