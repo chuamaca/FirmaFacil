@@ -3,9 +3,12 @@ package com.dcode.firmafacil;
 import static com.dcode.firmafacil.Dashboard.ShowJPanel;
 import com.dcode.firmafacil.Data.DDocumento;
 import com.dcode.firmafacil.Data.DServicio;
+import com.dcode.firmafacil.Data.Tabla_PdfVO;
 import com.dcode.firmafacil.Modelo.Documento;
 import com.dcode.firmafacil.Modelo.ServicioDocumento;
 import com.google.gson.Gson;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -172,7 +175,7 @@ public class FormListaDocumento extends javax.swing.JPanel {
             .addGroup(header1Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
         header1Layout.setVerticalGroup(
             header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,15 +203,16 @@ public class FormListaDocumento extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                    .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(btnFirmarDocumento)))
+                        .addComponent(txtFactura)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFirmarDocumento)
+                        .addGap(14, 14, 14)))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -217,9 +221,12 @@ public class FormListaDocumento extends javax.swing.JPanel {
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(btnFirmarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFirmarDocumento)
+                            .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -245,29 +252,28 @@ public class FormListaDocumento extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         if (jTableServicioDocumento.getSelectedRow() > -1) {
-            
-            Documento docObj= new Documento();
-            DDocumento d= new DDocumento();
-            
-             String idDocumento = (String) jTableServicioDocumento
+
+            Documento docObj = new Documento();
+            DDocumento d = new DDocumento();
+
+            String idDocumento = (String) jTableServicioDocumento
                     .getValueAt(jTableServicioDocumento.getSelectedRow(), 0);
-             System.out.println("idDocumento Firmas: " + idDocumento);
-             
-             
-             docObj.setIdDocumento(Integer.parseInt(idDocumento));
+            System.out.println("idDocumento Firmas: " + idDocumento);
+
+            docObj.setIdDocumento(Integer.parseInt(idDocumento));
 
             ShowJPanel(new FormFirmaDocumento(d.SelectByIdDocumentoObject(docObj)));
         }
 
-  
+
     }//GEN-LAST:event_btnFirmarDocumentoActionPerformed
 
-    
 
     private void btnRegistrarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDocumentoActionPerformed
         // TODO add your handling code here:
         ShowJPanel(new FormDocumento());
     }//GEN-LAST:event_btnRegistrarDocumentoActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

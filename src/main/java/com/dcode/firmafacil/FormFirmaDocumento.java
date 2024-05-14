@@ -1,13 +1,17 @@
 package com.dcode.firmafacil;
 
 import com.dcode.firmafacil.Data.DDocumento;
+import com.dcode.firmafacil.Data.DServicio;
 import com.dcode.firmafacil.Data.Tabla_PdfVO;
 import com.dcode.firmafacil.Modelo.Documento;
+import com.dcode.firmafacil.Modelo.Servicio;
 import com.google.gson.Gson;
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -31,11 +35,9 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
     boolean editar = false;
 //    MDemanda demandaEditar;
 
-    Documento documentoObj;
+    Documento documentoObj = null;
     int id = -1;
-    
-    Tabla_PdfVO tpdfServicio = new Tabla_PdfVO();
-    Tabla_PdfVO tpdfDocumento = new Tabla_PdfVO();
+    int idServClick = -1;
 
     public FormFirmaDocumento() {
         initComponents();
@@ -48,27 +50,22 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
         InitStyles();
         editar = true;
         this.documentoObj = documento;
-        
-        int keyDocumento=documentoObj.getIdDocumento();
-        
+
+        int keyDocumento = documentoObj.getIdDocumento();
+
         VisualizarDocumento(keyDocumento);
 
     }
 
     private void InitStyles() {
-        if (documentoObj != null) {
-            byte[] base = documentoObj.getArchivoOrigen();
-        }
     }
-    
-    private void VisualizarDocumento(int idDocumento){
-        
+
+    private void VisualizarDocumento(int idDocumento) {
+
+        Tabla_PdfVO tpdfDocumento = new Tabla_PdfVO();
         tpdfDocumento.MostrarGrillaArchivoCargado(jTablePDFDocument, idDocumento);
     }
-    
-    
 
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,27 +76,30 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        btnGuardarDemanda = new javax.swing.JButton();
+        btnFirmarDocumento = new javax.swing.JButton();
         header1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePDFService = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTablePDFDocument = new javax.swing.JTable();
+        txtLugar = new javax.swing.JTextField();
+        txtIdDocumento = new javax.swing.JTextField();
+        apMLbl = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnGuardarDemanda.setBackground(new java.awt.Color(18, 90, 173));
-        btnGuardarDemanda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnGuardarDemanda.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarDemanda.setText("Firmar Documento");
-        btnGuardarDemanda.setBorderPainted(false);
-        btnGuardarDemanda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGuardarDemanda.addActionListener(new java.awt.event.ActionListener() {
+        btnFirmarDocumento.setBackground(new java.awt.Color(18, 90, 173));
+        btnFirmarDocumento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFirmarDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        btnFirmarDocumento.setText("Firmar Documento");
+        btnFirmarDocumento.setBorderPainted(false);
+        btnFirmarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFirmarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarDemandaActionPerformed(evt);
+                btnFirmarDocumentoActionPerformed(evt);
             }
         });
 
@@ -163,6 +163,13 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTablePDFDocument);
 
+        txtLugar.setToolTipText("");
+
+        txtIdDocumento.setToolTipText("");
+
+        apMLbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        apMLbl.setText("Lugar");
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -172,12 +179,19 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2)))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(apMLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnFirmarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(bgLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardarDemanda, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
                     .addContainerGap()
@@ -188,16 +202,21 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(btnGuardarDemanda, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(95, 95, 95)
+                .addComponent(apMLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFirmarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(390, Short.MAX_VALUE))
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
                     .addGap(68, 68, 68)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(536, Short.MAX_VALUE)))
+                    .addContainerGap(538, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -216,86 +235,118 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-      private void VisualizarServicio(int idDocumento){
-        
-        tpdfServicio.MostrarGrillaArchivoFirmado(jTablePDFService, idDocumento);
+    private void VisualizarServicio(int idServicio) {
+        Tabla_PdfVO tpdfServicio = new Tabla_PdfVO();
+        tpdfServicio.MostrarGrillaArchivoFirmado(jTablePDFService, idServicio);
     }
-    
-    
-    private void btnGuardarDemandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDemandaActionPerformed
+
+
+    private void btnFirmarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarDocumentoActionPerformed
         // TODO add your handling code here:
 
         // TODO add your handling code here:
         Gson gson = new Gson();
-        Documento doc = new Documento();
-//        doc.setIdDocumento(Integer.parseInt(txtIdDocumento.getText()));
-        doc.setIdDocumento(documentoObj.getIdDocumento());
 
+        Documento docus = new Documento();
+        docus.setIdDocumento(documentoObj.getIdDocumento());
+
+        /*
+        INSERT INTO FIRMAFACIL.dbo.Servicio
+        ( IdUsuario, IdDocumento, ContenidoDocumento, TipoDocumento, NombreDocumento,
+        Lugar, FechaServicio, FechaVigencia, Estado, UsuarioCrea,
+        FechaCrea) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         */
         DDocumento ddoc = new DDocumento();
-        List<Documento> documentos = new ArrayList<>();
-        documentos = ddoc.SelectByIdDocumento(doc);
+        Documento listadocumento = new Documento();
+        listadocumento = ddoc.SelectByIdDocumentoObject(docus);
 
-        for (Documento documento : documentos) {
-            try {
-                Informacion data = new Informacion();
-                data.setNombre(documento.getNombreDocumento());
-                String base64String = Base64.getEncoder().encodeToString(documento.getArchivoOrigen());
-                data.setData(base64String);
+        try {
 
-                String json = gson.toJson(data);
-                System.out.println("json: " + json);
+            Informacion data = new Informacion();
+            data.setNombre(listadocumento.getNombreDocumento());
+            String base64String = Base64.getEncoder().encodeToString(listadocumento.getArchivoOrigen());
+            data.setData(base64String);
 
-                // Crear el objeto HttpClient
-                HttpClient client = HttpClient.newHttpClient();
+            String json = gson.toJson(data);
+            System.out.println("json: " + json);
 
-                // Crear el objeto HttpRequest
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost:8080/pki/firma"))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(json))
-                        .build();
+            // Crear el objeto HttpClient
+            HttpClient client = HttpClient.newHttpClient();
 
-                System.out.println("request: " + request);
+            // Crear el objeto HttpRequest
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/pki/firma"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
 
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("request: " + request);
 
-                ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-                System.out.println("apiResponse:" + apiResponse.data);
+            ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
 
-                // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
-                if ("OK".equals(apiResponse.estado)) {
-                    byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
+            System.out.println("apiResponse:" + apiResponse.data);
 
-                    // 7. Guardar el PDF
-                    Path path = Path.of("D:\\output"+documentoObj.getIdDocumento()+".pdf");
+            // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
+            if ("OK".equals(apiResponse.estado)) {
 
-                    Files.write(path, pdfData);
-                    System.out.println("Archivo PDF guardado correctamente.");
-                } else {
-                    System.out.println("Estado no es OK, no se guardará el archivo.");
+                byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
+
+                Path path = Path.of("D:\\ArchivoFirmado_" + documentoObj.getIdDocumento() + ".pdf");
+                System.out.println("Patch::  " + path);
+                Files.write(path, pdfData);
+
+                System.out.println("Archivo PDF guardado correctamente.");
+
+                if (pdfData != null) {
+                    System.out.println("archivoDestinoPdf Null:   " + pdfData);
+                    Servicio objServicio = new Servicio();
+
+                    objServicio.setIdDocumento(documentoObj.getIdDocumento());
+                    objServicio.setContenidoDocumento(pdfData);
+                    objServicio.setTipoDocumento("PDF");
+                    objServicio.setNombreDocumento(documentoObj.getNombreDocumento());
+                    objServicio.setLugar(txtLugar.getText());
+
+                    DServicio dServicio = new DServicio();
+                    int inserkey = dServicio.insertServicio(objServicio);
+
+                    if (inserkey > 0) {
+                        System.out.println("Servicio Insertado para Ver: " + inserkey);
+                        
+                        VisualizarServicio(inserkey);
+
+                    }
                 }
 
-            } catch (IOException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
+                // 7. Guardar el PDF
+            } else {
+                System.out.println("Estado no es OK, no se guardará el archivo.");
             }
 
+        } catch (IOException ex) {
+            Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-    }//GEN-LAST:event_btnGuardarDemandaActionPerformed
+    }//GEN-LAST:event_btnFirmarDocumentoActionPerformed
 
     private void jTablePDFServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePDFServiceMouseClicked
         // TODO add your handling code here:
 
         int column = jTablePDFService.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / jTablePDFService.getRowHeight();
-
+        
+        
+        
         if (row < jTablePDFService.getRowCount() && row >= 0 && column < jTablePDFService.getColumnCount() && column >= 0) {
-            id = (int) jTablePDFService.getValueAt(row, 2);
+            idServClick = (int) jTablePDFService.getValueAt(row, 1);
+
+            System.out.println("jTablePDFServiceMouseClicked idServClick:  " + idServClick);
             Object value = jTablePDFService.getValueAt(row, column);
+            System.out.println("jTablePDFServiceMouseClicked value: " + value);
             if (value instanceof JButton) {
                 ((JButton) value).doClick();
                 JButton boton = (JButton) value;
@@ -303,11 +354,13 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
                 if (boton.getText().equals("Vacio")) {
                     JOptionPane.showMessageDialog(null, "No hay archivo");
                 } else {
-                    DDocumento pd = new DDocumento();
-                    System.out.println("ejecutar_archivoPDF: " + id);
-                    pd.ejecutar_archivoPDFServicio(id);
+                    DServicio dServicio = new DServicio();
+                    System.out.println("ejecutar_archivoPDFServicio: " + idServClick);
+                    
+                    dServicio.ejecutar_archivoPDFServicio(idServClick);
+                    
                     try {
-                        Desktop.getDesktop().open(new File("new.pdf"));
+                        Desktop.getDesktop().open(new File("newDocumentoFirmado.pdf"));
                     } catch (Exception ex) {
                     }
                 }
@@ -321,8 +374,8 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
 
     private void jTablePDFDocumentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePDFDocumentMouseClicked
         // TODO add your handling code here:
-        
-         int column = jTablePDFDocument.getColumnModel().getColumnIndexAtX(evt.getX());
+
+        int column = jTablePDFDocument.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY() / jTablePDFDocument.getRowHeight();
 
         if (row < jTablePDFDocument.getRowCount() && row >= 0 && column < jTablePDFDocument.getColumnCount() && column >= 0) {
@@ -388,8 +441,7 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
 
     }
 
-    
-       private void VisualizarPdf(byte[] base64EncodedPDF) {
+    private void VisualizarPdf(byte[] base64EncodedPDF) {
 
         System.out.println("VisualizarPdf:: " + base64EncodedPDF);
 
@@ -439,15 +491,18 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
 
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel apMLbl;
     private javax.swing.JPanel bg;
-    private javax.swing.JButton btnGuardarDemanda;
+    private javax.swing.JButton btnFirmarDocumento;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTablePDFDocument;
     private javax.swing.JTable jTablePDFService;
+    private javax.swing.JTextField txtIdDocumento;
+    private javax.swing.JTextField txtLugar;
     // End of variables declaration//GEN-END:variables
 }

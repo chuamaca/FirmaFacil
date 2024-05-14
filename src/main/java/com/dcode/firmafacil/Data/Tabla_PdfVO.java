@@ -16,12 +16,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Tabla_PdfVO extends javax.swing.JFrame {
 
-    DDocumento dao = null;
-    
-     DServicio dServicio = null;
-
     public void MostrarGrillaArchivoCargado(JTable tabla, int idDocumento) {
-        System.out.println("visualizar_PdfVO: " + idDocumento);
+        System.out.println("MostrarGrillaArchivoCargado: " + idDocumento);
         tabla.setDefaultRenderer(Object.class, new imgTabla());
         DefaultTableModel dt = new DefaultTableModel() {
             @Override
@@ -29,7 +25,7 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
                 return false;
             }
         };
-        
+
         dt.addColumn("Ruta Origen");
         dt.addColumn("Ver Pdf");
         dt.addColumn("Id");
@@ -40,7 +36,7 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
             System.out.println("Icono: " + icono);
         }
 
-        dao = new DDocumento();
+        DDocumento dao = new DDocumento();
         Documento vo = new Documento();
 
         Documento doc = new Documento();
@@ -52,7 +48,7 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 Object fila[] = new Object[4];
                 vo = list.get(i);
-                
+
                 fila[0] = vo.getNombreDocumento();
                 if (vo.getArchivoOrigen() != null) {
                     fila[1] = new JButton(icono);
@@ -64,12 +60,12 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
                 dt.addRow(fila);
             }
             tabla.setModel(dt);
-           
+
         }
     }
-    
-    public void MostrarGrillaArchivoFirmado(JTable tabla, int idDocumento) {
-        System.out.println("visualizar_PdfVO: " + idDocumento);
+
+    public void MostrarGrillaArchivoFirmado(JTable tabla, int idServicio) {
+        System.out.println("MostrarGrillaArchivoFirmado: " + idServicio);
         tabla.setDefaultRenderer(Object.class, new imgTabla());
         DefaultTableModel dt = new DefaultTableModel() {
             @Override
@@ -77,9 +73,8 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
                 return false;
             }
         };
-        
-        dt.addColumn("Archivo");
         dt.addColumn("Ver Pdf");
+        dt.addColumn("Archivo");
         dt.addColumn("Id");
 
         ImageIcon icono = null;
@@ -88,31 +83,32 @@ public class Tabla_PdfVO extends javax.swing.JFrame {
             System.out.println("Icono: " + icono);
         }
 
-        dServicio = new DServicio();
+        DServicio dServicio = new DServicio();
+
+        Servicio docufirmado = new Servicio();
+        docufirmado.setIdServicio(idServicio);
+
+        List<Servicio> listFirmado = dServicio.SelectServicioByIdServicio(docufirmado);
+
         Servicio vo = new Servicio();
+        System.out.println(" List<Servicio> list = dServicio.SelectServicioByIdDocumento(docu): " + listFirmado.toString());
+        if (listFirmado.size() > 0) {
+            for (int i = 0; i < listFirmado.size(); i++) {
+                Object fila[] = new Object[3];
+                vo = listFirmado.get(i);
 
-        Documento docu = new Documento();
-        docu.IdDocumento = idDocumento;
-        List<Servicio> list = dServicio.SelectServicioByIdDocumento(docu);
-
-        System.out.println(" List<Servicio> list = dServicio.SelectServicioByIdDocumento(docu): " + list.toString());
-        if (list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                Object fila[] = new Object[4];
-                vo = list.get(i);
-                
-                fila[0] = vo.getNombreDocumento();
-                if (vo.getContenidoDocumento()!= null) {
-                    fila[1] = new JButton(icono);
+                if (vo.getContenidoDocumento() != null) {
+                    fila[0] = new JButton(icono);
                 } else {
-                    fila[1] = new JButton("Vacio");
+                    fila[0] = new JButton("Vacio");
                 }
-                fila[2] = vo.getIdDocumento();
+                fila[1] = vo.getIdServicio();
+                fila[2] = vo.getNombreDocumento();
 
                 dt.addRow(fila);
             }
             tabla.setModel(dt);
-           
+
         }
     }
 
