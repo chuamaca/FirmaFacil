@@ -34,6 +34,7 @@ public class DDocumento {
             + " VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SQL_SELECT_ID = "SELECT  ArchivoOrigen FROM FIRMAFACIL.dbo.Documento where IdDocumento =? and Estado=1";
+    private static final String SQL_SELECT_SERVICIO_ID = "select ContenidoDocumento  from Servicio where IdDocumento =? and Estado =1";
 
     public int insertDocumento(Documento documento) { //, Cliente cli,Categoria cat
         System.out.println("InsertDocumento");
@@ -51,7 +52,7 @@ public class DDocumento {
         try {
             conn = ConexionJDBC.getConexion();
             stmt = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-           
+
             stmt.setInt(1, documento.getIdCliente());
             stmt.setInt(2, documento.getIdCategoria());
             stmt.setBytes(3, documento.getArchivoOrigen());
@@ -128,7 +129,7 @@ public class DDocumento {
         return listDocumento;
     }
 
-       public Documento SelectByIdDocumentoObject(Documento objDocumento) {
+    public Documento SelectByIdDocumentoObject(Documento objDocumento) {
 
         System.out.println("SelectByNroExpediente: " + objDocumento);
 
@@ -136,7 +137,6 @@ public class DDocumento {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Documento mDocumento = null;
-        
 
         try {
             conn = ConexionJDBC.getConexion();
@@ -196,6 +196,47 @@ public class DDocumento {
             bos.read(datosPDF, 0, tamanoInput);
 
             OutputStream out = new FileOutputStream("new.pdf");
+            out.write(datosPDF);
+
+            //abrir archivo
+            out.close();
+            bos.close();
+
+        } catch (IOException | NumberFormatException | SQLException ex) {
+            System.out.println("Error al abrir archivo PDF " + ex.getMessage());
+        } finally {
+            ConexionJDBC.close(rs);
+            ConexionJDBC.close(stmt);
+            ConexionJDBC.close(conn);
+        }
+    }
+
+    public void ejecutar_archivoPDFServicio(int id) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        byte[] b = null;
+
+        try {
+
+            conn = ConexionJDBC.getConexion();
+            stmt = conn.prepareStatement(SQL_SELECT_SERVICIO_ID);
+            stmt.setInt(1, id);
+            System.out.println("ejecutar_archivoPDF: " + id);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                b = rs.getBytes(1);
+            }
+            InputStream bos = new ByteArrayInputStream(b);
+
+            int tamanoInput = bos.available();
+            byte[] datosPDF = new byte[tamanoInput];
+            bos.read(datosPDF, 0, tamanoInput);
+
+            OutputStream out = new FileOutputStream("newDocumentoFirmado.pdf");
             out.write(datosPDF);
 
             //abrir archivo

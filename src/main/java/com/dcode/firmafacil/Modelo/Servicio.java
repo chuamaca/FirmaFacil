@@ -47,6 +47,11 @@ public class Servicio extends Auditoria  {
         this.FechaVigencia = FechaVigencia;
     }
 
+    public Servicio() {
+    }
+    
+    
+
     public int getIdServicio() {
         return IdServicio;
     }

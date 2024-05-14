@@ -6,6 +6,7 @@ package com.dcode.firmafacil.Data;
 
 import com.dcode.firmafacil.Modelo.Cliente;
 import com.dcode.firmafacil.Modelo.Documento;
+import com.dcode.firmafacil.Modelo.Servicio;
 import com.dcode.firmafacil.Modelo.ServicioDocumento;
 import com.dcode.firmafacil.Util.ConexionJDBC;
 import java.sql.Connection;
@@ -29,6 +30,9 @@ public class DServicio {
 "inner join Categoria c2 on c2.IdCategoria =d.IdCategoria \n" +
 "left join Usuario u on u.IdUsuario =s.IdUsuario\n" +
 "where c.IdCliente =?";
+    
+     private static final String SQL_SERVICIO_SELECT_BY_DOCUMENTO = "SELECT IdDocumento , TipoDocumento , NombreDocumento , ContenidoDocumento FROM FIRMAFACIL.dbo.Servicio WHERE IdDocumento =? AND Estado =1";
+
     
       public List<ServicioDocumento> SelectDocumentoByCliente(int IdCliente) {
 
@@ -80,5 +84,50 @@ public class DServicio {
         }
 
         return listDocumento;
+    }
+      
+      
+      public List<Servicio> SelectServicioByIdDocumento(Documento objDocumento) {
+
+        System.out.println("SelectServicioByIdDocumento: " + objDocumento);
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Servicio mServicio = null;
+        List<Servicio> listServicio = new ArrayList<>();
+
+        try {
+            conn = ConexionJDBC.getConexion();
+            stmt = conn.prepareStatement(SQL_SERVICIO_SELECT_BY_DOCUMENTO);
+            stmt.setInt(1, objDocumento.getIdDocumento());
+            rs = stmt.executeQuery();
+            System.out.println("stmt.executeQuery(): ");
+            while (rs.next()) {
+
+                int IdDocumento = rs.getInt("IdDocumento");
+                String TipoDocumento = rs.getString("TipoDocumento");
+                String NombreDocumento = rs.getString("NombreDocumento");
+                byte[] archivopdf = rs.getBytes("ArchivoOrigen");
+
+                mServicio = new Servicio();
+                mServicio.setIdDocumento(IdDocumento);
+                mServicio.setTipoDocumento(TipoDocumento);
+                mServicio.setNombreDocumento(NombreDocumento);
+                mServicio.setContenidoDocumento(archivopdf);
+
+                listServicio.add(mServicio);
+                System.out.println("listServicio.add(mServicio): " + listServicio.toString());
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            ConexionJDBC.close(rs);
+            ConexionJDBC.close(stmt);
+            ConexionJDBC.close(conn);
+        }
+
+        return listServicio;
     }
 }
