@@ -128,6 +128,48 @@ public class DDocumento {
         return listDocumento;
     }
 
+       public Documento SelectByIdDocumentoObject(Documento objDocumento) {
+
+        System.out.println("SelectByNroExpediente: " + objDocumento);
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Documento mDocumento = null;
+        
+
+        try {
+            conn = ConexionJDBC.getConexion();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_DOCUMENTO);
+            stmt.setInt(1, objDocumento.getIdDocumento());
+            rs = stmt.executeQuery();
+            System.out.println("stmt.executeQuery(): ");
+            while (rs.next()) {
+
+                int IdDocumento = rs.getInt("IdDocumento");
+                String TipoDocumento = rs.getString("TipoDocumento");
+                String NombreDocumento = rs.getString("NombreDocumento");
+                byte[] archivopdf = rs.getBytes("ArchivoOrigen");
+
+                mDocumento = new Documento();
+                mDocumento.setIdDocumento(IdDocumento);
+                mDocumento.setTipoDocumento(TipoDocumento);
+                mDocumento.setNombreDocumento(NombreDocumento);
+                mDocumento.setArchivoOrigen(archivopdf);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            ConexionJDBC.close(rs);
+            ConexionJDBC.close(stmt);
+            ConexionJDBC.close(conn);
+        }
+
+        return mDocumento;
+    }
+
     public void ejecutar_archivoPDF(int id) {
 
         Connection conn = null;

@@ -18,6 +18,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class FormListaDocumento extends javax.swing.JPanel {
@@ -57,7 +58,7 @@ public class FormListaDocumento extends javax.swing.JPanel {
 //        }
 //    }
     public void Mostrar(int IdCliente) {
-        
+
         System.out.println("Mostrar Listado Documentos!!! ");
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -89,10 +90,9 @@ public class FormListaDocumento extends javax.swing.JPanel {
             servicioDocForTable[6] = item.getUsuarioFirma();
             modelo.addRow(servicioDocForTable);
         }
-        
+
         jTableServicioDocumento.setModel(modelo);
     }
-
 
     private void InitStyles() {
 
@@ -134,7 +134,7 @@ public class FormListaDocumento extends javax.swing.JPanel {
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnFirmarDocumento.setBackground(new java.awt.Color(18, 90, 173));
+        btnFirmarDocumento.setBackground(new java.awt.Color(0, 153, 102));
         btnFirmarDocumento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnFirmarDocumento.setForeground(new java.awt.Color(255, 255, 255));
         btnFirmarDocumento.setText("Firmar Documento");
@@ -205,11 +205,10 @@ public class FormListaDocumento extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFirmarDocumento)
-                        .addGap(78, 78, 78)))
+                        .addGap(84, 84, 84)
+                        .addComponent(btnFirmarDocumento)))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -219,8 +218,8 @@ public class FormListaDocumento extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFirmarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnFirmarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -245,188 +244,25 @@ public class FormListaDocumento extends javax.swing.JPanel {
     private void btnFirmarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarDocumentoActionPerformed
         // TODO add your handling code here:
 
-        // TODO add your handling code here:
-        Gson gson = new Gson();
-        Documento doc = new Documento();
-//        doc.setIdDocumento(Integer.parseInt(txtIdDocumento.getText()));
-        doc.setIdDocumento(1);
+        if (jTableServicioDocumento.getSelectedRow() > -1) {
+            
+            Documento docObj= new Documento();
+            DDocumento d= new DDocumento();
+            
+             String idDocumento = (String) jTableServicioDocumento
+                    .getValueAt(jTableServicioDocumento.getSelectedRow(), 0);
+             System.out.println("idDocumento Firmas: " + idDocumento);
+             
+             
+             docObj.setIdDocumento(Integer.parseInt(idDocumento));
 
-        DDocumento ddoc = new DDocumento();
-        List<Documento> documentos = new ArrayList<>();
-        documentos = ddoc.SelectByIdDocumento(doc);
-
-        for (Documento documento : documentos) {
-            try {
-                Informacion data = new Informacion();
-                data.setNombre(documento.getNombreDocumento());
-                String base64String = Base64.getEncoder().encodeToString(documento.getArchivoOrigen());
-                data.setData(base64String);
-
-                String json = gson.toJson(data);
-                System.out.println("json: " + json);
-
-                // Crear el objeto HttpClient
-                HttpClient client = HttpClient.newHttpClient();
-
-                // Crear el objeto HttpRequest
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost:8080/pki/firma"))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(json))
-                        .build();
-
-                System.out.println("request: " + request);
-
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-                ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
-
-                System.out.println("apiResponse:" + apiResponse.data);
-
-                // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
-                if ("OK".equals(apiResponse.estado)) {
-                    byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
-
-                    // 7. Guardar el PDF
-                    Path path = Path.of("D:\\output.pdf");
-
-                    Files.write(path, pdfData);
-                    System.out.println("Archivo PDF guardado correctamente.");
-                } else {
-                    System.out.println("Estado no es OK, no se guardará el archivo.");
-                }
-
-            } catch (IOException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FormDocumento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            ShowJPanel(new FormFirmaDocumento(d.SelectByIdDocumentoObject(docObj)));
         }
 
-//        int fila = 0;
-//        int total = 0;
-//        for (int i = 0; i < jTableCuentaDetalle.getRowCount(); i++) {
-//            fila = Integer.parseInt(jTableCuentaDetalle.getValueAt(i, 1).toString());
-//
-//            total += fila;
-//        }
-//        int contador;
-//
-//        if (total == 0) {
-//            contador = 1;
-//        } else {
-//            contador = jTableCuentaDetalle.getRowCount() + 1;
-//        }
-        //double calcularSaldo = 0;
-        //  String numdoc = cuentaEditar.getDocumento();
-        // MDemanda objCd = new MDemanda();
-//        objCd.setNrocuotadet(contador);
-//        objCd.setIngresodet(Double.parseDouble(txtIngresoDet.getText()));
-//        objCd.setSaldodet(calcularSaldo);
-//        //objCd.setCuentabancodet(txtCuentaBanco.getText());
-//        objCd.setCuentabancodet((String) cmbCuentaBanco.getSelectedItem());
-//        System.out.println("Combo getName" + (String) cmbCuentaBanco.getSelectedItem());
-//        objCd.setGlosadet(txtGlosa.getText());
-//        objCd.setIdmovimiento(idmovimiento);
-//        objCd.setDocumento(numdoc);
-//        System.out.println("objCuentaDetalle   >>>> " + objCd);
-//
-//        double ingresoDeuda = Double.parseDouble(txtIngresoDet.getText());
-//        double deudaPendiente = Double.parseDouble(txtDeudaPendiente.getText());
-//        if (ingresoDeuda > deudaPendiente) {
-//
-//            JOptionPane.showMessageDialog(null, "El Pago Supera la Deuda");
-//
-//        } else {
-//
-//            DDemanda dDemanda = new DDemanda();
-//            if (editar == true) {
-//                System.out.println("Ediatr Cuenta Detallle ::: " + editar);
-//                int rtaInsert = dDemanda.insertDemanda(objCd);
-//                System.out.println("Insert Cuenta Detalle:  " + rtaInsert);
-//                if (rtaInsert == 1) {
-//
-//                 //   MostrarListaCuentaDetalle(objCd);
-//                   // Mostrar(cuentaEditar);
-//                    //LimpiarTexto();
-//                }
-//
-//            }
-//        }
-
-        /*
-        LineaCredito obj = new LineaCredito();
-        obj.setNombre_cliente(txtcliente.getText());
-        obj.setRuc_cliente(txtRUC.getText());
-        obj.setDias_credito(Integer.parseInt(txtdiascredito.getText()));
-        obj.setMonto_maximo(Double.parseDouble(txtMontoMaximo.getText()));
-        obj.setMoneda(txtMoneda.getText());
-        obj.setUsuario_registro("chuamanic");
-        obj.setRiesgo_crediticio(editar ? lineaCreditoEditar.getRiesgo_crediticio() : "medio");
-        
-
-        System.out.println("Valores: >>>>>" + obj);
-
-        LineaCreditoJDBC lineaCreditoJDBC = new LineaCreditoJDBC();
-        if (editar == false) {
-            int rta = lineaCreditoJDBC.insertLineaCredito(obj);
-
-            if (rta == 1) {
-                Dashboard.ShowJPanel(new LineaCreditoLista());
-                JOptionPane.showMessageDialog(null, "Se Agrego correctamente");
-            }
-        } else {
-            obj.setIdlc(lineaCreditoEditar.getIdlc());
-
-            int rta = lineaCreditoJDBC.updateLineaCredito(obj);
-
-            if (rta == 1) {
-                Dashboard.ShowJPanel(new LineaCreditoLista());
-                JOptionPane.showMessageDialog(null, "Se Modifico correctamente");
-            }
-        }
-         */
-
+  
     }//GEN-LAST:event_btnFirmarDocumentoActionPerformed
 
-    private static class ApiResponse {
-
-        String estado;
-        String data;
-    }
-
-    public class Informacion {
-
-        private String data;
-        private String nombre;
-
-        public Informacion(String data, String nombre) {
-            this.data = data;
-            this.nombre = nombre;
-        }
-
-        public Informacion() {
-        }
-
-        public String getData() {
-            return data;
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-
-    }
-
+    
 
     private void btnRegistrarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDocumentoActionPerformed
         // TODO add your handling code here:

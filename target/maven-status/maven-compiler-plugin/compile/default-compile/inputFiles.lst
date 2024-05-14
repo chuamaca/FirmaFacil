@@ -1,6 +1,7 @@
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Cliente.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\imgTabla.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\Tabla_PdfVO.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\FormFirmaDocumento.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\ServicioDocumento.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Usuario.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\FormListaDocumento.java
@@ -8,6 +9,7 @@ D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Util\ConexionJDBC.ja
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Data\DDocumento.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Principal.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\FormListaDocumentoFirmado.java
+D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\mivisorpdf\CuadroImagen.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Modelo\Categoria.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\Login.java
 D:\1 UTP 2024\FirmaFacil\src\main\java\com\dcode\firmafacil\PlantillaCrud.java
