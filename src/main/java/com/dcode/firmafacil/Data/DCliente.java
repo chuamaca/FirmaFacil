@@ -42,4 +42,33 @@ public class DCliente {
 
         return clientes;
     }
+
+    public List<String> ListClienteString() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<String> clientes = new ArrayList<>();
+
+        try {
+            conn = ConexionJDBC.getConexion();
+            String sql = "SELECT Nombre FROM FIRMAFACIL.dbo.Cliente where Estado=1";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String cliente = rs.getString("Nombre");
+                clientes.add(cliente);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            ConexionJDBC.close(rs);
+            ConexionJDBC.close(stmt);
+            ConexionJDBC.close(conn);
+        }
+
+        return clientes;
+    }
+
 }

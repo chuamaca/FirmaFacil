@@ -5,7 +5,6 @@ import com.dcode.firmafacil.Data.DCategoria;
 import com.dcode.firmafacil.Data.DCliente;
 import com.dcode.firmafacil.Data.DDocumento;
 import com.dcode.firmafacil.Data.DServicio;
-import com.dcode.firmafacil.Modelo.Cliente;
 import com.dcode.firmafacil.Modelo.Documento;
 import com.dcode.firmafacil.Modelo.ServicioDocumento;
 import com.google.gson.Gson;
@@ -22,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import com.dcode.firmafacil.Data.DDocumentoFirmado;
 
 public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
@@ -38,42 +38,45 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
     private void CargarCLiente() {
         DCliente dCliente = new DCliente();
-        List<Cliente> clientes = dCliente.ListCliente();
+        List<String> clientes = dCliente.ListClienteString();
 
-        for (Cliente nom : clientes) {
-            cmbCliente2.addItem(nom.getNombre());
+        for (String nom : clientes) {
+            cmbCliente2.addItem(nom);
         }
     }
 
-    public void Mostrar1() {
+    public void ListarDocumentosFirmados() {
 
         String selecCliente = (String) cmbCliente2.getSelectedItem();
+        int codigoCliente = obtenerCodigoClientePorNombre(selecCliente);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("IdDocumento");
+          modelo.addColumn("NombreDocumento");
         modelo.addColumn("Empresa");
         modelo.addColumn("Categoria");
-        modelo.addColumn("Firmado");
-        modelo.addColumn("FechaServicio");
+        modelo.addColumn("Ruta");
+        modelo.addColumn("FechaFirma");
         modelo.addColumn("FechaVigencia");
+         modelo.addColumn("NombreUsuario");
 
         jTableServicioDocumento.setModel(modelo);
 
-        DServicio servicio = new DServicio();
-        List<ServicioDocumento> serviciodocumentoList = servicio.SelectDocumentoByCliente(1);
+        DDocumentoFirmado documentoFirmado = new DDocumentoFirmado();
+        List<ServicioDocumento> serviciodocumentoList = documentoFirmado.SelectDocumentoByCliente(codigoCliente);
         System.out.println(" Traer datos " + serviciodocumentoList);
 
         String servicioDocForTable[] = new String[8];
         for (ServicioDocumento item : serviciodocumentoList) {
 
             servicioDocForTable[0] = "" + item.getIdDocumento();
-            servicioDocForTable[1] = item.getEmpresa();
-            servicioDocForTable[2] = item.getCategoria();
-            servicioDocForTable[3] = "*.pdf";
-            servicioDocForTable[4] = "" + item.getIdServicio();
+            servicioDocForTable[1] = "" + item.getNombreDocumento();
+            servicioDocForTable[2] = item.getEmpresa();
+            servicioDocForTable[3] = item.getCategoria();
+            servicioDocForTable[4] = "" + item.getArchivoOrigen();
             servicioDocForTable[5] = "" + item.getFechaServicio();
             servicioDocForTable[6] = "" + item.getFechaVigencia();
-            servicioDocForTable[6] = item.getUsuarioFirma();
+            servicioDocForTable[7] = item.getUsuarioFirma();
             modelo.addRow(servicioDocForTable);
         }
 
@@ -181,9 +184,10 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
                     .addComponent(jScrollPane2))
                 .addContainerGap())
             .addGroup(bgLayout.createSequentialGroup()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
@@ -192,16 +196,20 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                        .addGap(19, 19, 19))
+                        .addGap(30, 30, 30)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(btnRegistrarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                .addGap(19, 19, 19))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(cmbCliente2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))))
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -221,6 +229,12 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private int obtenerCodigoClientePorNombre(String selecCliente) {
+       DDocumentoFirmado dCliente = new DDocumentoFirmado();
+    return dCliente.obtenerCodigoClientePorNombre(selecCliente); 
+    
+    }
 
     private static class ApiResponse {
 
@@ -262,6 +276,8 @@ public class FormListaDocumentoFirmado extends javax.swing.JPanel {
 
     private void btnRegistrarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDocumentoActionPerformed
         // TODO add your handling code here:
+        ListarDocumentosFirmados();
+        
     }//GEN-LAST:event_btnRegistrarDocumentoActionPerformed
 
 
