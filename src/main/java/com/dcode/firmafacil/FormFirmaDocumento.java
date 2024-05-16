@@ -244,18 +244,10 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
     private void btnFirmarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarDocumentoActionPerformed
         // TODO add your handling code here:
 
-        // TODO add your handling code here:
         Gson gson = new Gson();
-
         Documento docus = new Documento();
         docus.setIdDocumento(documentoObj.getIdDocumento());
 
-        /*
-        INSERT INTO FIRMAFACIL.dbo.Servicio
-        ( IdUsuario, IdDocumento, ContenidoDocumento, TipoDocumento, NombreDocumento,
-        Lugar, FechaServicio, FechaVigencia, Estado, UsuarioCrea,
-        FechaCrea) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-         */
         DDocumento ddoc = new DDocumento();
         Documento listadocumento = new Documento();
         listadocumento = ddoc.SelectByIdDocumentoObject(docus);
@@ -269,11 +261,7 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
 
             String json = gson.toJson(data);
             System.out.println("json: " + json);
-
-            // Crear el objeto HttpClient
             HttpClient client = HttpClient.newHttpClient();
-
-            // Crear el objeto HttpRequest
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/pki/firma"))
                     .header("Content-Type", "application/json")
@@ -281,14 +269,10 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
                     .build();
 
             System.out.println("request: " + request);
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
             ApiResponse apiResponse = gson.fromJson(response.body(), ApiResponse.class);
 
             System.out.println("apiResponse:" + apiResponse.data);
-
-            // 6. Decodificar el Base64 y guardar el archivo PDF si el estado es OK
             if ("OK".equals(apiResponse.estado)) {
 
                 byte[] pdfData = Base64.getDecoder().decode(apiResponse.data);
@@ -296,8 +280,6 @@ public class FormFirmaDocumento extends javax.swing.JPanel {
                 Path path = Path.of("D:\\ArchivoFirmado_" + documentoObj.getIdDocumento() + ".pdf");
                 System.out.println("Patch::  " + path);
                 Files.write(path, pdfData);
-
-                System.out.println("Archivo PDF guardado correctamente.");
 
                 if (pdfData != null) {
                     System.out.println("archivoDestinoPdf Null:   " + pdfData);
